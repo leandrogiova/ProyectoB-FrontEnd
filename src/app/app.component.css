@@ -6,6 +6,7 @@ El id es unico y en css se inicializa con el #
 
 La clase se puede re utilizar y en css se inicializa con el . 
 */
+/*
 body {
     margin: center;
     height: auto;
@@ -14,79 +15,43 @@ body {
     background-color: #2e2c2c;
 }
 
+*/
 #espacioBotonHome { /* boton "Home" */
     margin-left: 10%;
+}
+
+#espacioBotonMibar{
     margin-right: 10%;
 }
 
-/*
 #page{
     margin: center;
     height: auto;
     width: auto;
     text-align: center;
-    background-color: #2e2c2c;
-}
-*/
 
-.titulo1 { /* La Corte */
-    color: rgb(255, 255, 255);
-    font-family: "Cormorant Garamond", Georgia, serif;
-    font-weight: 300;
-    font-size: 60px;
-    margin-left: 1cm;
-    margin-right: 1cm;
 }
 
-.titulo2{ /*Cafe y tragos    |  sabemos de cafe */
-    color: rgb(255, 255, 255);
-    font-family: "Cormorant Garamond", Georgia, serif;
-    font-weight: 300;
-    font-size: 30px;
-    margin-top: -2cm;
-}
 
-.tituloprincipal{ /* Los mejores Cafes & Tragos en Arroyo */
-    color: rgb(255, 255, 255);
-    font-family: cursive, large;
-    font-weight: 100;
-    font-style: italic;
-    font-size: 90px;
-} 
-
-.titulo3{ /* Si no existieran los cafés, muchas cosas jamás habrían sido hechas, dichas, ni pensadas */
-    font-weight: 50;
-    font-size: 30px;
-    font-family: "Satisfy", cursive;
-    font-style: oblique;
-}
-
-.boton1 {   /* Botones del menu (Menu, Carta, Tragos, Quienes Somos, Contactenos) */
+#botonespecialMibar {
     font-family: "Satisfy", cursive;
     font-size: 20px;
-    font-style: oblique;
-    font-stretch: extra-expanded;
-    color: rgb(255, 255, 255); /* color de la letra*/
-    background-color: #2e2c2c; /*FONDO*/
-
-    border-color:#2e2c2c;
-    /*    border: none;*/
-    margin-left: 25px;
-    margin-right: 25px;
+    color: #ffffff; /* color de la letra*/
+    border: none;
+    margin-left: 10%;
+    background-color: #2e2c2ce3;
 }
 
-.botonespecial {
+#botonespecialHome {
     font-family: "Satisfy", cursive;
     font-size: 20px;
-
-    color: rgb(255, 255, 255); /* color de la letra*/
-    background-color: #2e2c2c6c; /*FONDO*/
-
-    border-color:rgb(255, 255, 255);
-    margin-left: 40cm; 
-    /* margin-left: 80%  */
+    color: #ffffff; /* color de la letra*/
+    margin-left: 70%;
+    margin: center;
+    border: none;
+    background-color: #2e2c2ce3;
 }
 
-.resaltador:hover{
-    border-bottom-color: red;
+.letrablanca{
+    color: white;
 }

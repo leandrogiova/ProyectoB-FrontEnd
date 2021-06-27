@@ -1,0 +1,39 @@
+.titulo1 { /* La Corte */
+    color: rgb(255, 255, 255);
+    /*font-family: "Cormorant Garamond", Georgia, serif;
+    */
+    font-weight: 300;
+    font-size: 60px;
+    margin-left: 1cm;
+    margin-right: 1cm;
+}
+
+.titulo2{ /*Cafe y tragos    |  sabemos de cafe */
+    color: rgb(255, 255, 255);
+    /*
+    font-family: "Cormorant Garamond", Georgia, serif;
+    */
+    font-weight: 300;
+    font-size: 30px;
+    margin-top: -25px;
+}
+
+
+.tituloprincipal{ /* Los mejores Cafes & Tragos en Arroyo */
+    color: rgb(255, 255, 255);
+    font-family: cursive, large;
+    font-weight: 100;
+    font-style: italic;
+    font-size: 90px;
+} 
+
+
+.titulo3{ /* Si no existieran los cafés, muchas cosas jamás habrían sido hechas, dichas, ni pensadas */
+    font-weight: 50;
+    font-size: 30px;
+    /*
+    font-family: "Satisfy", cursive;
+    */
+    font-style: oblique;
+    color: white;
+}
