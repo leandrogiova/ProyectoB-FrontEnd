@@ -1,0 +1,8 @@
+.recuadro{
+    font-family: 'Courier New', Courier, monospace;
+    border: 5px solid #053b62;
+    width: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+}
