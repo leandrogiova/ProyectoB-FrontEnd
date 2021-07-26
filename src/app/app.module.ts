@@ -14,6 +14,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { MibarComponent } from './mibar/mibar.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule     //para usar formularios reactivos
+    ReactiveFormsModule,     //para usar formularios reactivos
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

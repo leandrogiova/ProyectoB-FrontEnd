@@ -1,37 +1,71 @@
-<div class="recuadro">
+<h1> EJEMPLO DE DIAMAND CONECTANDO FRONTEND CON BACKEND</h1>
+<p>https://github.com/ldiamand/tallerIV_frontend/commit/f138e0ad377a5509fa0c98e67203f259f0035597</p>
+
+
+<div class="recuadro_principal">
     <h1>Mesas Abiertas</h1>
+    <input type = "button" (click) = "ActualizarMesas()" name = "boton" >
     <ul>
-        <li> lista de mesas abiertas ... </li>
+<!--        
+        <li ng*For = "let Producto of productos"> 
+            {{producto.id_grupo}} | {{producto.id}} | {{producto.nombre}}
+        </li>
+
+-->
     </ul>
 </div>
 
 
 
-<div class="recuadro">
+<div class="recuadro_principal">
     <form [formGroup] = "agregarProductoMesa" (ngSubmit) = "EnviarServidorProductoAMesa()">
         <h1> Agregar Producto a una Mesa </h1>     
 
         <input type="number" placeholder="id de la mesa"  formControlName= "idMesa" />
-        <button type = "submit"> Submit </button>  
+         
  
        <!-- ingrese: {{agregarProducto.idProducto.value}}-->
-            <div formGroupName = "idProducto"> ------------
+            <div formGroupName = "idProducto" class = "recuadro_secundario"> 
                 <input type="number" placeholder="id del grupo del producto" formControlName = "idGrupo" />
                 <input type="number" placeholder="id del producto" formControlName = "idProducto" />
                 <input type="text" placeholder="nombre del producto" formControlName = "nombre" />
                 <!--     Ver si conviene hacer un <datalist> con los nombres de los productos -->                
-               <button type = "submit"> Submit </button>  
+             
             </div>
 
         <input type = "datetime-local" placeholder= "Introducir fecha y hora" required formControlName = "fechaHora" >
-
+        
+        <p> <button type = "submit"> Enviar </button> </p> 
     </form>
 
 </div>
 
+<div class = "recuadro_principal">
+    <h1>Cobrar Mesa</h1>
+    <div class="recuadro_secundario">
+        <input type="number" placeholder="id de la mesa" formControl = "cobrarIdMesa" >
+        <p> <button type = "submit">Cobrar </button> </p>
+    </div>
+    <div class="recuadro_secundario">
+        <h4>Cobrar un Producto</h4>
+        <input type = "number" placeholder="id de la mesa" [formControl] = "cobrarIdMesa">
+        <input type = "number" placeholder="id del producto" [formControl] = "cobrarIdProducto">
+        <p><button type = "submit">Cobrar un Producto </button></p>
+    </div>
+</div>
 
-<div class="recuadro">
-    hacer un recuadro azul grande y un recuadro pequeño en azul para separar cuando ingreso los datos del producto
+<div class = "recuadro_principal">
+    <h1>Ver Detalles de la Mesa</h1>
+   
+        <input type="number" placeholder="id de la mesa" [formControl] = "cobrarIdMesa" >
+        <p> <button type = "submit"> Ver Mesa </button> </p>
+
+    </div>
+
+<div class="recuadro_principal">
+    hacer un recuadro azul grande y un recuadro pequeño en azul para separar cuando ingreso los datos del producto.
+    <p>Agregar pedir resumenes mensuales, resumenes semanales</p>
+
 </div>
 
 
