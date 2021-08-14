@@ -1,9 +1,8 @@
-/* ESTE SERVICIO SE VA A ENCARGAR DE MOTRAR TODAS LAS MESAS 
-
-
-
-
+/* ESTE SERVICIO SE VA A ENCARGAR DE MOTRAR TODAS LOS PRODUCTOS, MODIFICAR LOS PRECIOS, AGREGAR PRODUCTOS
+ELIMINAR PRODUCTOS, DAR DE BAJA PRODUCTOS
 */
+
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -11,13 +10,13 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class MesaService {
+export class ProductoService {
 
   constructor(private http: HttpClient) { }
 
-/*
-  public getProductos(): Observable<any>{
+
+  public getAllProductos(): Observable<any>{
     return this.http.get('http://localhost:8080/productos');
   }
-*/
+
 }

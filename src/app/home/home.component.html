@@ -30,11 +30,11 @@
         </p>
         
         <h1 id = "ir_menu"> Menu </h1>
-        <h5> LLEGUE A MENU </h5>
-        <!--  <componenete_menu>  </componente_menu>   llamo al componente menu-->
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium incidunt fugit voluptates mollitia adipisci amet dicta dignissimos consequatur sunt vitae quaerat commodi error exercitationem magni earum iure, delectus deleniti autem perspiciatis! Voluptatem fugit laborum culpa, dolorem nesciunt eos labore modi perspiciatis quae magnam aliquam distinctio magni impedit facere dolore provident commodi excepturi optio natus voluptates explicabo ipsum, iste dignissimos? Voluptatem iste explicabo soluta. Natus ad iste officiis adipisci esse. Ea consequatur, accusamus sit nihil incidunt exercitationem odit, nobis aliquid explicabo quis ipsa quo ratione, est quae suscipit obcaecati. Necessitatibus aliquid deleniti accusamus numquam dolorum ut!
-        </p>
+        <ul>        
+          <li *ngFor = "let producto of productos">
+                  {{producto.id}} | {{producto.nombre}} => ${{producto.precio}}
+          </li>  
+      </ul>
 
         <h1 id = "ir_carta"> Carta </h1>
           

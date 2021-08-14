@@ -4,21 +4,17 @@
 
 <div class="recuadro_principal">
     <h1>Mesas Abiertas</h1>
-    <input type = "button" (click) = "ActualizarMesas()" name = "boton" >
+<!--    <input type = "button" (click) = "ActualizarMesas()" name = "boton" >  -->
+    Este boton que esta comentado llama a la funcion o metodo "actualizarmesas" y ese metodo va a buscar todos los datos 
+    al backend de las mesas abiertas con sus productos y sus precios
     <ul>
-<!--        
-        <li ng*For = "let Producto of productos"> 
-            {{producto.id_grupo}} | {{producto.id}} | {{producto.nombre}}
-        </li>
-
--->
     </ul>
 </div>
 
 
 
 <div class="recuadro_principal">
-    <form [formGroup] = "agregarProductoMesa" (ngSubmit) = "EnviarServidorProductoAMesa()">
+    <form [formGroup] = "agregarProductoMesa" (ngSubmit) = "EnviarServidorProductoAMesa()"> 
         <h1> Agregar Producto a una Mesa </h1>     
 
         <input type="number" placeholder="id de la mesa"  formControlName= "idMesa" />
@@ -43,24 +39,35 @@
 <div class = "recuadro_principal">
     <h1>Cobrar Mesa</h1>
     <div class="recuadro_secundario">
+
+<!--
         <input type="number" placeholder="id de la mesa" formControl = "cobrarIdMesa" >
+-->
+
         <p> <button type = "submit">Cobrar </button> </p>
     </div>
     <div class="recuadro_secundario">
         <h4>Cobrar un Producto</h4>
+
+<!--
         <input type = "number" placeholder="id de la mesa" [formControl] = "cobrarIdMesa">
-        <input type = "number" placeholder="id del producto" [formControl] = "cobrarIdProducto">
-        <p><button type = "submit">Cobrar un Producto </button></p>
-    </div>
+       <input type = "number" placeholder="id del producto" [formControl] = "cobrarIdProducto">
+
+       <p><button type = "submit">Cobrar un Producto </button></p>
+--> 
+
+</div>
 </div>
 
 <div class = "recuadro_principal">
     <h1>Ver Detalles de la Mesa</h1>
    
-        <input type="number" placeholder="id de la mesa" [formControl] = "cobrarIdMesa" >
-        <p> <button type = "submit"> Ver Mesa </button> </p>
+<!--
+            <input type="number" placeholder="id de la mesa" [formControl] = "cobrarIdMesa" >
+-->
 
-    </div>
+        <p> <button type = "submit"> Ver Mesa </button> </p>
+</div>
 
 <div class="recuadro_principal">
     hacer un recuadro azul grande y un recuadro pequeño en azul para separar cuando ingreso los datos del producto.

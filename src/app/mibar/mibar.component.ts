@@ -14,9 +14,8 @@ export class MibarComponent implements OnInit {
   cobrarIdMesa: FormControl;
   cobrarIdProducto: FormControl;
 
-  productos: any[];
 
-  constructor(private fb: FormBuilder, private servicioProducto: MesaService ) { 
+  constructor(private fb: FormBuilder ) { 
     this.agregarProductoMesa = this.fb.group({
       idMesa: '',
       fechaHora: '',
@@ -27,18 +26,18 @@ export class MibarComponent implements OnInit {
       }),
     });
   
-    this.cobrarIdMesa = new FormControl('');
-    this.cobrarIdProducto = new FormControl('');
+    //  this.cobrarIdMesa = new FormControl('');
+    //  this.cobrarIdProducto = new FormControl('');
   }
 
   ngOnInit() {
-    this.servicioProducto.getProductos().subscribe();
   }
+
   
   EnviarServidorProductoAMesa(){
     console.log("Hola enviando al servidor");
-
-    /*minuto 59
+    /*
+    minuto 59
     Este boton envia los datos al servidor pero primero los muestro para saber que esta funcionando
     Una vez que los muestro corroboro que el id de la mesa exista, que el id del producto sea correcto
     que el nombre del id coincida con el id.
@@ -47,19 +46,8 @@ export class MibarComponent implements OnInit {
     
 
     https://www.tutorialesprogramacionya.com/angularya/detalleconcepto.php?punto=88&codigo=88&inicio=80
-    */
+  */
   }
-
-  public deleteHero(){
-   console.log("Hola desde deleteHero");
- }
-
-
- 
- public ActualizarMesas(){
   
-
-
- }
 
 }
