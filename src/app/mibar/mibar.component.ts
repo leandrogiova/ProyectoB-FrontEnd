@@ -1,7 +1,7 @@
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MesaService } from './mesa.service';
+
 
 @Component({
   selector: 'app-mibar',
@@ -23,6 +23,7 @@ export class MibarComponent implements OnInit {
         idGrupo: '',
         idProducto: '',
         nombre: '',
+        precio: '',
       }),
     });
   
@@ -31,6 +32,13 @@ export class MibarComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  /*
+  Agrega un producto a la bases de datos y se encarga de controlar que el id no sea repetido
+  */
+  public AgregarProducto(){
+      console.log("Hola que tal, tengo que enviar un producto a la base de datos");
   }
 
   

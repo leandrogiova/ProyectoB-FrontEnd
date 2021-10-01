@@ -6,16 +6,6 @@ El id es unico y en css se inicializa con el #
 
 La clase se puede re utilizar y en css se inicializa con el . 
 */
-/*
-body {
-    margin: center;
-    height: auto;
-    width: auto;
-    text-align: center;
-    background-color: #2e2c2c;
-}
-
-*/
 #espacioBotonHome { /* boton "Home" */
     margin-left: 10%;
 }

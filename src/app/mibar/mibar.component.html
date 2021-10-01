@@ -20,7 +20,6 @@
         <input type="number" placeholder="id de la mesa"  formControlName= "idMesa" />
          
  
-       <!-- ingrese: {{agregarProducto.idProducto.value}}-->
             <div formGroupName = "idProducto" class = "recuadro_secundario"> 
                 <input type="number" placeholder="id del grupo del producto" formControlName = "idGrupo" />
                 <input type="number" placeholder="id del producto" formControlName = "idProducto" />
@@ -40,21 +39,11 @@
     <h1>Cobrar Mesa</h1>
     <div class="recuadro_secundario">
 
-<!--
-        <input type="number" placeholder="id de la mesa" formControl = "cobrarIdMesa" >
--->
-
         <p> <button type = "submit">Cobrar </button> </p>
     </div>
     <div class="recuadro_secundario">
         <h4>Cobrar un Producto</h4>
 
-<!--
-        <input type = "number" placeholder="id de la mesa" [formControl] = "cobrarIdMesa">
-       <input type = "number" placeholder="id del producto" [formControl] = "cobrarIdProducto">
-
-       <p><button type = "submit">Cobrar un Producto </button></p>
---> 
 
 </div>
 </div>
@@ -62,9 +51,6 @@
 <div class = "recuadro_principal">
     <h1>Ver Detalles de la Mesa</h1>
    
-<!--
-            <input type="number" placeholder="id de la mesa" [formControl] = "cobrarIdMesa" >
--->
 
         <p> <button type = "submit"> Ver Mesa </button> </p>
 </div>
@@ -73,6 +59,18 @@
     hacer un recuadro azul grande y un recuadro pequeño en azul para separar cuando ingreso los datos del producto.
     <p>Agregar pedir resumenes mensuales, resumenes semanales</p>
 
+</div>
+
+<div class = "recuadro_principal">
+    <h1> Agregar Producto A la Bases de Datos</h1>
+    <div formGroupName = "idProducto"> 
+        <input type="number" placeholder="id del grupo del producto" formControlName = "idGrupo" />
+        <input type="number" placeholder="id del producto" formControlName = "idProducto" />
+        <input type="text" placeholder="nombre del producto" formControlName = "nombre" />
+        <input type="number" placeholder="precio del producto" formControlName = "precio" />
+        <input (click) = "AgregarProducto()" type = "button" value = "Enviar" />
+        
+    </div>
 </div>
 
 
