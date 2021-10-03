@@ -1,6 +1,7 @@
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ProductoService } from '../producto.service';
 
 
 @Component({
@@ -10,22 +11,36 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class MibarComponent implements OnInit {
 
+  agregarProducto: FormGroup;
   agregarProductoMesa: FormGroup;
   cobrarIdMesa: FormControl;
   cobrarIdProducto: FormControl;
 
 
-  constructor(private fb: FormBuilder ) { 
+  constructor(private servicioProducto: ProductoService, private fb: FormBuilder ) { 
+
+    this.agregarProducto = this.fb.group({
+      ClavePrimaria: this.fb.group({
+        idGrupo: '',
+        idProducto: '',
+      }),
+      nombre: '',
+      precio: '',
+    });
+
+
     this.agregarProductoMesa = this.fb.group({
       idMesa: '',
       fechaHora: '',
-      idProducto: this.fb.group({
-        idGrupo: '',
-        idProducto: '',
-        nombre: '',
-        precio: '',
-      }),
+      agregarProducto: '', //definido arriba
+//      idProducto: this.fb.group({
+//        idGrupo: '',
+//        idProducto: '',
+//        nombre: '',
+//        precio: '',
+//      }),
     });
+
   
     //  this.cobrarIdMesa = new FormControl('');
     //  this.cobrarIdProducto = new FormControl('');
@@ -37,8 +52,10 @@ export class MibarComponent implements OnInit {
   /*
   Agrega un producto a la bases de datos y se encarga de controlar que el id no sea repetido
   */
-  public AgregarProducto(){
+  public enviarProducto(){
       console.log("Hola que tal, tengo que enviar un producto a la base de datos");
+      console.log(this.agregarProducto.value);
+      this.servicioProducto.postProducto(this.agregarProducto.value);
   }
 
   

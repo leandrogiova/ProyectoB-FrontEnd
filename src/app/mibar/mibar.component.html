@@ -14,26 +14,22 @@
 
 
 <div class="recuadro_principal">
+    <h1> Agregar Producto a una Mesa </h1>     
+<!--
     <form [formGroup] = "agregarProductoMesa" (ngSubmit) = "EnviarServidorProductoAMesa()"> 
-        <h1> Agregar Producto a una Mesa </h1>     
 
         <input type="number" placeholder="id de la mesa"  formControlName= "idMesa" />
-         
- 
             <div formGroupName = "idProducto" class = "recuadro_secundario"> 
                 <input type="number" placeholder="id del grupo del producto" formControlName = "idGrupo" />
                 <input type="number" placeholder="id del producto" formControlName = "idProducto" />
                 <input type="text" placeholder="nombre del producto" formControlName = "nombre" />
-                <!--     Ver si conviene hacer un <datalist> con los nombres de los productos -->                
-             
+                <p> Ver si conviene hacer un <(datalist)< con los nombres de los productos </p>                 
             </div>
-
         <input type = "datetime-local" placeholder= "Introducir fecha y hora" required formControlName = "fechaHora" >
-        
         <p> <button type = "submit"> Enviar </button> </p> 
     </form>
-
 </div>
+-->
 
 <div class = "recuadro_principal">
     <h1>Cobrar Mesa</h1>
@@ -59,21 +55,20 @@
     hacer un recuadro azul grande y un recuadro pequeño en azul para separar cuando ingreso los datos del producto.
     <p>Agregar pedir resumenes mensuales, resumenes semanales</p>
 
-</div>
+</div> 
 
-<div class = "recuadro_principal">
-    <h1> Agregar Producto A la Bases de Datos</h1>
-    <div formGroupName = "idProducto"> 
-        <input type="number" placeholder="id del grupo del producto" formControlName = "idGrupo" />
-        <input type="number" placeholder="id del producto" formControlName = "idProducto" />
-        <input type="text" placeholder="nombre del producto" formControlName = "nombre" />
-        <input type="number" placeholder="precio del producto" formControlName = "precio" />
-        <input (click) = "AgregarProducto()" type = "button" value = "Enviar" />
-        
+<form [formGroup] = "agregarProducto" (submit) = "enviarProducto()">
+    <div class = "recuadro_principal">
+        <h1> Agregar Producto A la Bases de Datos</h1>    
+          <div formGroupName="ClavePrimaria">  
+            <p>Id del grupo: <input type="number" placeholder="id del grupo del producto"  formControlName="idGrupo" /></p>
+            <p>Id del producto: <input type="number" placeholder="id del producto" formControlName = "idProducto" /></p>
+        </div>
+            <p>Nombre: <input type="text" placeholder="nombre del producto" formControlName = "nombre" /></p>
+            <p>Precio: <input type="number" placeholder="precio del producto" formControlName = "precio" /></p>
+            <p><input type="submit" value="Enviar Producto" [disabled] = "!agregarProducto.value"/></p>            
     </div>
-</div>
-
-
+</form>
 
 
 

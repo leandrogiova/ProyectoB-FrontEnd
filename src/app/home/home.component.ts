@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Producto } from '../models/producto';
+import { ProductoClavePrimaria } from '../models/productoClavePrimaria';
 import { ProductoService } from '../producto.service';
 
 @Component({
@@ -12,17 +13,21 @@ export class HomeComponent implements OnInit {
 
   productos: Producto[];
 
+
   constructor(private servicioProducto: ProductoService ) { 
     this.productos = [];
   }
+  
+  
+  
   ngOnInit() {
     this.servicioProducto.getAllProductos().subscribe(productos => {
       this.productos = productos;
       console.log(this.productos);
-      console.log("id_grupo = " + this.productos[1].getId_grupo);
     });
-
-
   }
+
+
+
 
 }

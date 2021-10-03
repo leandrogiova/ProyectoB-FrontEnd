@@ -10,10 +10,12 @@ export class Producto {
         this.id_general = id;
         this.nombre = nombre;
         this.precio = precio;
-
     }
 
-    getId_grupo(): number {
-        return this.id_general.id_grupo;
+    getIdGeneral_Id_grupo(): number {
+        return this.id_general.getId_grupo();
+    }
+    getIdGeneral_Id(): number {
+        return this.id_general.getId();
     }
 }   
