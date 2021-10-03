@@ -57,165 +57,26 @@
 
 </div> 
 
+
+<div class="recuadro_secundario">
+    <button (click) = "VerListaProducto()">Ver lista de productos</button>
+    <table>
+     <tr  *ngFor="let producto of productos">
+        <th class="tabla_productos">{{producto.numeroProducto}}</th>
+        <th class="tabla_productos">{{producto.nombre}} </th>
+        <th class="tabla_productos">{{producto.precio}}</th>
+    </tr>       
+    </table>
+</div>
+
+
+
 <form [formGroup] = "agregarProducto" (submit) = "enviarProducto()">
     <div class = "recuadro_principal">
         <h1> Agregar Producto A la Bases de Datos</h1>    
-          <div formGroupName="ClavePrimaria">  
-            <p>Id del grupo: <input type="number" placeholder="id del grupo del producto"  formControlName="idGrupo" /></p>
-            <p>Id del producto: <input type="number" placeholder="id del producto" formControlName = "idProducto" /></p>
-        </div>
+            <p>Numero de producto: <input type="number" placeholder="numero del producto" formControlName="numeroProducto" /></p>
             <p>Nombre: <input type="text" placeholder="nombre del producto" formControlName = "nombre" /></p>
             <p>Precio: <input type="number" placeholder="precio del producto" formControlName = "precio" /></p>
             <p><input type="submit" value="Enviar Producto" [disabled] = "!agregarProducto.value"/></p>            
     </div>
 </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--  
-
-    <div class="recuadro">
-    <h1>Mesas Abiertas</h1>
-    <ul>
-    <li> lista de mesas abiertas ... </li>
-    </ul>
-</div>
-
-
-<div class = "recuadro">
-    <form>    
-        <h1>Agregar Producto a una Mesa</h1>
-        <ul>
-            <li>  
-                <label for="id_mesa" >  Id de la Mesa </label> 
-                <input type="number" placeholder="id de la mesa" id = "id_mesa" required />
-            </li>
-            <li>
-                <label for="id_del_producto" >  Id del producto </label>
-                <input type = "number" placeholder= "id grupo del producto" id = "id_del_producto">
-                <input type="number" placeholder = "id del producto" id = "id_del_producto" >   
-            </li>
-            <li>
-                <label for="nombre_producto"> Nombre del producto</label>
-                <input type="text" placeholder= "nombre_producto"> 
-    
-                Agarrar lo que escribe el usuario y pasarlo a minusculas
-    Ver si conviene hacer un <datalist> con los nombres de los productos
-   
-        
-
-        </li>
-            <li>
-                <label for="fecha">Hora y Fecha</label>
-                <input type = "datetime-local" placeholder= "Introducif fecha y hora" required />
-            </li>
-            
-            <button type =  "submit" id = "id_mesa" > Enviar </button>
-        </ul>
-    </form>    
-</div>
-
-
-<div class= "recuadro">
-    <h1> Cobrar Mesa </h1>
-    <form>
-        <label for = "id_mesa"> Id de la mesa a cobrar:
-            <input type="number" id="id_mesa" placeholder= "id mesa"> 
-            <button> Enviar id</button>
-        </label>
-    </form>
- 
- Pedir id de una mesa y 
- 
-
-
-
-
-</div>
-
-
-<div class = "recuadro">
-    <h1> Ver detalles de una mesa </h1>
-    <form>
-        <label for = "id_mesa"> Id de la mesa:
-            <input type="number" id="id_mesa" placeholder= "id mesa"> 
-            <button> Enviar id</button>
-        </label>
-    </form>
- 
- Pedir id de una mesa y 
- 
- 
- div>
- 
- 
- Elegir un id de una mesa y hacer un pedido y traer todos los productos con sus precio de la mesa
-    <form action="" method="post">
-        <label for="POST-name">Nombre:</label>
-        <input id="POST-name" type="text" name="name">
-        <input type="submit" value="Save">
-    </form>
- 
-
-
-<div class = "recuadro">
-    <h1> Resumenes </h1>
-    <form>
-        <label for = "resumen_mensual"> Resumen mensual:
-            <input type="month" id="resumen_mensual" placeholder= "mes a elegir"> 
-            <button> Pedir Resumen</button>
-
-            <button (click)= deleteHero() >Borrar heroe</button>
-         </label>
-    </form>
-</div>
-    
-
-
-
-
-
-//Cuando agrego un producto le paso el id de la mesa para saber que mesa es
-
-//Luego le digo que producto quiero agregar y lo envio a una tabla Mesa-Producto
-
-//Al cobrar una mesa la mesa pasa a estar cerrada.
-
-//(Las mesas CERRADAS quieren decir que la mesa esta desocupadupa
-//Las mesas ACTIVAS O ABIERTAS son mesas que en el momento estan abiertas)
-
--->

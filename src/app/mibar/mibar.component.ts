@@ -1,6 +1,7 @@
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Producto } from '../models/producto';
 import { ProductoService } from '../producto.service';
 
 
@@ -16,14 +17,13 @@ export class MibarComponent implements OnInit {
   cobrarIdMesa: FormControl;
   cobrarIdProducto: FormControl;
 
+  productos: Producto[];
+
 
   constructor(private servicioProducto: ProductoService, private fb: FormBuilder ) { 
 
     this.agregarProducto = this.fb.group({
-      ClavePrimaria: this.fb.group({
-        idGrupo: '',
-        idProducto: '',
-      }),
+      numeroProducto: '',
       nombre: '',
       precio: '',
     });
@@ -33,45 +33,35 @@ export class MibarComponent implements OnInit {
       idMesa: '',
       fechaHora: '',
       agregarProducto: '', //definido arriba
-//      idProducto: this.fb.group({
-//        idGrupo: '',
-//        idProducto: '',
-//        nombre: '',
-//        precio: '',
-//      }),
     });
 
   
-    //  this.cobrarIdMesa = new FormControl('');
-    //  this.cobrarIdProducto = new FormControl('');
   }
 
   ngOnInit() {
   }
 
   /*
-  Agrega un producto a la bases de datos y se encarga de controlar que el id no sea repetido
+  Agrega un producto a la bases de datos.
   */
   public enviarProducto(){
-      console.log("Hola que tal, tengo que enviar un producto a la base de datos");
-      console.log(this.agregarProducto.value);
       this.servicioProducto.postProducto(this.agregarProducto.value);
   }
 
   
   EnviarServidorProductoAMesa(){
-    console.log("Hola enviando al servidor");
-    /*
-    minuto 59
-    Este boton envia los datos al servidor pero primero los muestro para saber que esta funcionando
-    Una vez que los muestro corroboro que el id de la mesa exista, que el id del producto sea correcto
-    que el nombre del id coincida con el id.
-    y que halla ingresado la fecha.
+    console.log("Hola enviando al servidor. Debo enciar un producto a la mesa");
+  }
 
-    
+/*
+  Se van a buscar todos los productos de la bases de datos, para poder visualizar los productos en la pagina 
+  Y se comopleta la variable productos definida arriba
+*/
+  VerListaProducto(){
+    this.servicioProducto.getAllProductos().subscribe(productos => {
+      this.productos = productos;
+    });
 
-    https://www.tutorialesprogramacionya.com/angularya/detalleconcepto.php?punto=88&codigo=88&inicio=80
-  */
   }
   
 

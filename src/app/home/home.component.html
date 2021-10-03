@@ -32,8 +32,7 @@
         <h1 id = "ir_menu"> Menu </h1>
         <ul>        
           <li *ngFor = "let producto of productos">
-              <p> DATOS DEL PRODUCTO => | {{producto.nombre}} => ${{producto.precio}} </p>
-              <p>ID: {{producto.getIdGeneral_Id_grupo() }} | {{producto.getIdGeneral_Id_grupo()}}</p>
+              <p> DATOS DEL PRODUCTO => | {{producto.numeroProducto}} | {{producto.nombre}} => ${{producto.precio}} </p>
           </li>  
       </ul>
 
