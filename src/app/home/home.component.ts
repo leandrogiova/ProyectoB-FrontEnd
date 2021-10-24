@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MesaProductoService } from '../mesa-producto.service';
 import { Producto } from '../models/producto';
-import { ProductoClavePrimaria } from '../models/productoClavePrimaria';
 import { ProductoService } from '../producto.service';
 
 @Component({
@@ -13,9 +14,11 @@ export class HomeComponent implements OnInit {
 
   productos: Producto[];
 
+  formularioMesa: FormControl;
 
-  constructor(private servicioProducto: ProductoService ) { 
+  constructor(private servicioProducto: ProductoService, private servicioMesa: MesaProductoService) { 
     this.productos = [];
+    this.formularioMesa = new FormControl;
   }
   
   
@@ -27,7 +30,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
+  VerMiMesa(){ 
+    this.servicioMesa.getMesasAbiertas().subscribe(mesa => {
+//      this.mesas = mesa;
+    })
+  }
 
 
 }

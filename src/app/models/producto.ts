@@ -1,5 +1,3 @@
-import { ProductoClavePrimaria } from "./productoClavePrimaria";
-
 export class Producto {
 
     id: number;
@@ -7,10 +5,15 @@ export class Producto {
     nombre: string;
     precio: number;
 
-    constructor(id: number,nombre: string, precio: number){
+    
+    constructor(id: number,numeroProducto: number, nombre: string, precio: number){
         this.id = id;
+        this.numeroProducto = numeroProducto;
         this.nombre = nombre;
         this.precio = precio;
     }
+    
+
+    
 
 }   

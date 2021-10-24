@@ -1,6 +1,8 @@
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MesaProductoService } from '../mesa-producto.service';
+import { mesaProductos } from '../models/mesaProductos';
 import { Producto } from '../models/producto';
 import { ProductoService } from '../producto.service';
 
@@ -18,9 +20,11 @@ export class MibarComponent implements OnInit {
   cobrarIdProducto: FormControl;
 
   productos: Producto[];
+  mesasAbiertas: MesaProductoService[];
+  mesas: mesaProductos[];
 
 
-  constructor(private servicioProducto: ProductoService, private fb: FormBuilder ) { 
+  constructor(private servicioProducto: ProductoService,private mesaProductoService: MesaProductoService ,private fb: FormBuilder ) { 
 
     this.agregarProducto = this.fb.group({
       numeroProducto: '',
@@ -30,8 +34,7 @@ export class MibarComponent implements OnInit {
 
 
     this.agregarProductoMesa = this.fb.group({
-      idMesa: '',
-      fechaHora: '',
+      numeroMesa: '',
       agregarProducto: '', //definido arriba
     });
 
@@ -42,6 +45,31 @@ export class MibarComponent implements OnInit {
   }
 
   /*
+  VerMesasAbiertas, se mostraran todas las mesas abiertas
+    */
+  verMesasAbiertas(){
+    this.mesaProductoService.getMesasAbiertas().subscribe(mesaAbiertas => {
+      this.mesas = mesaAbiertas;
+    });
+    for(let i in this.mesas){
+      this.productos = this.mesas[i].listaProductos;
+    }
+    console.log(this.mesas)
+
+  }
+
+
+
+
+
+  enviarServidorProductoAMesa(){
+    console.log("Hola enviando al servidor. Debo enciar un producto a la mesa");
+  }
+
+
+
+
+  /*
   Agrega un producto a la bases de datos.
   */
   public enviarProducto(){
@@ -49,9 +77,6 @@ export class MibarComponent implements OnInit {
   }
 
   
-  EnviarServidorProductoAMesa(){
-    console.log("Hola enviando al servidor. Debo enciar un producto a la mesa");
-  }
 
 /*
   Se van a buscar todos los productos de la bases de datos, para poder visualizar los productos en la pagina 
@@ -62,7 +87,11 @@ export class MibarComponent implements OnInit {
       this.productos = productos;
     });
 
+
   }
   
+
+  
+
 
 }

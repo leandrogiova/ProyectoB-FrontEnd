@@ -19,6 +19,8 @@ La clase se puede re utilizar y en css se inicializa con el .
     height: auto;
     width: auto;
     text-align: center;
+    align-items: center;
+    justify-content: center;
 
 }
 

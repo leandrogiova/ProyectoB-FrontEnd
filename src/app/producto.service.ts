@@ -22,9 +22,10 @@ export class ProductoService {
 
 
   public getAllProductos(): Observable<Producto[]>{
-    return  this.http.get<Producto[]>('http://localhost:8080/productos');
+   return  this.http.get<Producto[]>('http://localhost:8080/productos/lista');
 
-   //  return this.http.get(this.url);
+ 
+    //  return this.http.get(this.url);
   //video https://www.youtube.com/watch?v=HNjV3Jv3obM&ab_channel=Loricode
   }
 

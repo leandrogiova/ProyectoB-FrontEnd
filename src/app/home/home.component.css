@@ -37,3 +37,20 @@
     font-style: oblique;
     color: white;
 }
+
+
+#page{
+    margin: center;
+    height: auto;
+    width: auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.formularioIdMesa {
+    background-color: lightgrey;
+    
+}

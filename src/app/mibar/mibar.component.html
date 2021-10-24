@@ -4,11 +4,23 @@
 
 <div class="recuadro_principal">
     <h1>Mesas Abiertas</h1>
-<!--    <input type = "button" (click) = "ActualizarMesas()" name = "boton" >  -->
-    Este boton que esta comentado llama a la funcion o metodo "actualizarmesas" y ese metodo va a buscar todos los datos 
-    al backend de las mesas abiertas con sus productos y sus precios
-    <ul>
-    </ul>
+    <input type = "button" (click) = "verMesasAbiertas()" value = "Ver Mesas Abiertas">
+   
+    <li *ngFor = "let mesaAbiertas of mesas">
+
+
+        <ul> Numero de mesa: {{mesaAbiertas.numero_mesa}} </ul>
+        <ul> Estado: {{mesaAbiertas.estado}}</ul>
+        <p> Lista Productos: </p>
+    </li>
+
+        <li *ngFor = "let producto of productos">
+            <ul>NumeroProducto: {{producto.id}}</ul>
+            <ul>Nombre: {{producto.nombre}}</ul>
+            <ul>Precio: {{producto.precio}}</ul>
+        </li>
+
+
 </div>
 
 
@@ -46,9 +58,15 @@
 
 <div class = "recuadro_principal">
     <h1>Ver Detalles de la Mesa</h1>
-   
+    <p> <button type = "submit" (click) = "verMesasAbiertas()"> Ver Mesa </button> </p>
 
-        <p> <button type = "submit"> Ver Mesa </button> </p>
+<!--
+    <div *ngFor = 'let mesas of mesasAbiertas'>
+        <p>{{mesas.numeroMesa}}</p> 
+        <p>{{mesas.producto.nombre}} | {{mesas.producto.numeroProducto}} | {{mesas.producto.precio}}</p>
+    </div>
+-->
+
 </div>
 
 <div class="recuadro_principal">
@@ -80,3 +98,10 @@
             <p><input type="submit" value="Enviar Producto" [disabled] = "!agregarProducto.value"/></p>            
     </div>
 </form>
+
+
+<div>
+
+<p>PARA MODIFICAR LOS PRECIOS COPIAR LA IDEA DE ACA: (minuto 8,15 mas o menos)</p>
+<a> https://www.youtube.com/watch?v=xd5dauBh8Y4&list=RDCMUCdulIs-x_xrRd1ezwJZR9ww&index=8&ab_channel=pildorasinformaticas </a>
+</div>
