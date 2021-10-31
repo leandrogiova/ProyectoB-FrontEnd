@@ -22,17 +22,20 @@
 
 </div>
 
-
-
 <div class="recuadro_principal">
-
-        <div class = "recuadro_principal">
-            <h1> Abrir una nueva Mesa </h1>   
-            <p>Numero de mesa: <input type="number" [formControl] = "numeroMesa" placeholder="numero de la mesa" > </p>
-            <p>Numero de producto <input type="number" [formControl] = "numeroDeProducto" placeholder="numero del producto"> </p>
-            <p> <input type = "button" value = "Enviar" (click) = "enviarServidorProductoAMesa()"> </p>
-        </div>
+    <div class = "recuadro_principal">
+        <h1>Abrir una nueva Mesa </h1>   
+        <p>Numero de mesa: <input type="number" [formControl] = "numeroMesa" placeholder="numero de la mesa" > </p>    
+        <p> <label> Productos </label> </p>
+        <select [formControl] = "numeroDeProducto" >
+                <option *ngFor = "let producto of productos" value={{producto.numeroProducto}}> 
+                    {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}
+                </option>
+        </select>
+        <p> <input type = "button" value = "Enviar" (click) = "enviarServidorProductoAMesa()"> </p>
+    </div>
 </div>
+
 
 <div class = "recuadro_principal">
     <h3>Agregar Otro Producto</h3>
@@ -47,61 +50,6 @@
    </div>
 
 
-
-   <div class="recuadro_principal">
-    <div class = "recuadro_principal">
-        <h1> METODO DE PRUEBA 2 => Abrir una nueva Mesa </h1>   
-        <p>Numero de mesa: <input type="number" [formControl] = "numeroMesa" placeholder="numero de la mesa" > </p>
-        
-        
-        <p>
-            <label> Productos </label>
-        </p>
-
-        <select [formControl] = "numeroDeProducto" >
-
-                <option *ngFor = "let producto of productos" value={{producto.numeroProducto}}> 
-                    {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}
-                </option>
-        </select>
-        <p> <input type = "button" value = "Enviar" (click) = "enviarServidorProductoAMesa()"> </p>
-
-    </div>
-
-
-</div>
-
-
-
-
-
-
-
-<p>
-    Objeto numeroDeProducto: {{numeroDeProducto.value}}
-</p>
-<p>
-    formulario: {{numeroMesa.value}}
-</p>
-
-<!--
-    <form [formGroup] = "agregarProductoMesa" (ngSubmit) = "EnviarServidorProductoAMesa()"> 
-
-        <input type="number" placeholder="id de la mesa"  formControlName= "idMesa" />
-            <div formGroupName = "idProducto" class = "recuadro_secundario"> 
-                <input type="number" placeholder="id del grupo del producto" formControlName = "idGrupo" />
-                <input type="number" placeholder="id del producto" formControlName = "idProducto" />
-                <input type="text" placeholder="nombre del producto" formControlName = "nombre" />
-                <p> Ver si conviene hacer un <(datalist)< con los nombres de los productos </p>                 
-            </div>
-        <input type = "datetime-local" placeholder= "Introducir fecha y hora" required formControlName = "fechaHora" >
-        <p> <button type = "submit"> Enviar </button> </p> 
-    </form>
-</div>
--->
-
-
-
 <div class = "recuadro_principal">
     <h1>Cobrar Mesa</h1>
     <div class="recuadro_secundario">
@@ -110,9 +58,7 @@
     </div>
     <div class="recuadro_secundario">
         <h4>Cobrar un Producto</h4>
-
-
-</div>
+    </div>
 </div>
 
 <div class = "recuadro_principal">

@@ -74,71 +74,11 @@ export class MibarComponent implements OnInit {
 */
   }
 
-
   /*
-  * FUNCION COMENTADA QUE FUNCIONA
-
-  * enviarServidorProductoMesa, agrega un producto a la mesa, enviandolo a la base de datos
- 
+     * FUNCION enviarServidorProductoAMesa
+     *  Levanta una nueva mesa agregando un unico producto, enviando un objeto MesaProdutos a la base de datos.
+  */
   enviarServidorProductoAMesa(){
-    let numero: number = 0;
-    numero = this.numeroDeProducto.value;
-
-    for(let i: number = 0; i <= 10; i++){
-      if(numero == this.productos[i].numeroProducto){      
-        let milista: Producto[] = [];
-        milista.push(this.productos[i]);
-        this.abrirNuevaMesa.listaProductos = milista;     
-      }
-      else{
-        console.log("ERROR - NO SE ENCONTRO EL PRODUCTO QUE SE QUIREE AGREGAR")
-      }
-    }
-    this.abrirNuevaMesa.estado = true;
-    this.abrirNuevaMesa.numero_mesa = this.numeroMesa.value;
-    
-    console.log("Hola enviando al servidor. Debo abrir una nueva mesa", "\nEnviando el objeto:", this.abrirNuevaMesa);
-    this.mesaProductoService.postAbrirMesa(this.abrirNuevaMesa);
-  }
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  enviarServidorProductoAMesa(){
-
       let numero: number = 0;
       numero = this.numeroDeProducto.value;
   
@@ -160,70 +100,32 @@ export class MibarComponent implements OnInit {
     }
   
   
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /*
-  Agrega un producto a la bases de datos.
+     * FUNCION enviarProducto
+     * Agrega un producto a la bases de datos.
   */
-  public enviarProducto(){
-      this.servicioProducto.postProducto(this.agregarProducto.value);
-      console.log("Agregando el objeto",this.agregarProducto.value, "\nObjeto Agregado a la base de datos");
+  enviarProducto(){
+    this.servicioProducto.postProducto(this.agregarProducto.value);
+    console.log("Agregando el objeto",this.agregarProducto.value, "\nObjeto Agregado a la base de datos");
   }
 
   
 
 /*
-  Se van a buscar todos los productos de la bases de datos, para poder visualizar los productos en la pagina 
-  Y se comopleta la variable productos definida arriba
+
+  ***************************************
+    ESTA FUNCION ESTA AL PEDO ACTUALMENTE
+  ***************************************
+    La variable productos la estoy actualizando en el ngOnit
+
+   * FUNCION VerListaProduto
+   * Se van a buscar todos los productos de la bases de datos, para poder visualizar los productos en la pagina 
+   * Y se comopleta la variable productos definida arriba
 */
   VerListaProducto(){
     this.servicioProducto.getAllProductos().subscribe(productos => {
       this.productos = productos;
     });
-
-
   }
   
 
