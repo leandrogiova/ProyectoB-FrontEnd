@@ -7,26 +7,83 @@
     <input type = "button" (click) = "verMesasAbiertas()" value = "Ver Mesas Abiertas">
    
     <li *ngFor = "let mesaAbiertas of mesas">
-
-
         <ul> Numero de mesa: {{mesaAbiertas.numero_mesa}} </ul>
         <ul> Estado: {{mesaAbiertas.estado}}</ul>
         <p> Lista Productos: </p>
+        <ul *ngFor = "let producto of mesaAbiertas.listaProductos ">
+            <p>Numero de Producto: {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}</p>        
+        </ul>
+<!--
+        <ul *ngFor = "let precio of precioTotal">
+            Precio Total de la mesa: {{precio}}
+        </ul>
+-->
     </li>
-
-        <li *ngFor = "let producto of productos">
-            <ul>NumeroProducto: {{producto.id}}</ul>
-            <ul>Nombre: {{producto.nombre}}</ul>
-            <ul>Precio: {{producto.precio}}</ul>
-        </li>
-
 
 </div>
 
 
 
 <div class="recuadro_principal">
-    <h1> Agregar Producto a una Mesa </h1>     
+
+        <div class = "recuadro_principal">
+            <h1> Abrir una nueva Mesa </h1>   
+            <p>Numero de mesa: <input type="number" [formControl] = "numeroMesa" placeholder="numero de la mesa" > </p>
+            <p>Numero de producto <input type="number" [formControl] = "numeroDeProducto" placeholder="numero del producto"> </p>
+            <p> <input type = "button" value = "Enviar" (click) = "enviarServidorProductoAMesa()"> </p>
+        </div>
+</div>
+
+<div class = "recuadro_principal">
+    <h3>Agregar Otro Producto</h3>
+
+    <p>
+        <label> Productos </label>
+         <select>      
+            <option *ngFor = "let producto of productos"> {{producto.numeroProducto}} | {{producto.nombre}}
+            </option>
+      </select> 
+    </p>
+   </div>
+
+
+
+   <div class="recuadro_principal">
+    <div class = "recuadro_principal">
+        <h1> METODO DE PRUEBA 2 => Abrir una nueva Mesa </h1>   
+        <p>Numero de mesa: <input type="number" [formControl] = "numeroMesa" placeholder="numero de la mesa" > </p>
+        
+        
+        <p>
+            <label> Productos </label>
+        </p>
+
+        <select [formControl] = "numeroDeProducto" >
+
+                <option *ngFor = "let producto of productos" value={{producto.numeroProducto}}> 
+                    {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}
+                </option>
+        </select>
+        <p> <input type = "button" value = "Enviar" (click) = "enviarServidorProductoAMesa()"> </p>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+<p>
+    Objeto numeroDeProducto: {{numeroDeProducto.value}}
+</p>
+<p>
+    formulario: {{numeroMesa.value}}
+</p>
+
 <!--
     <form [formGroup] = "agregarProductoMesa" (ngSubmit) = "EnviarServidorProductoAMesa()"> 
 
@@ -42,6 +99,8 @@
     </form>
 </div>
 -->
+
+
 
 <div class = "recuadro_principal">
     <h1>Cobrar Mesa</h1>

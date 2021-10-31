@@ -17,4 +17,10 @@ export class MesaProductoService {
     return this.http.get<mesaProductos[]>('http://localhost:8080/mesasAbiertas/lista');
   }
 
+
+  public postAbrirMesa(m1: mesaProductos): void{
+    this.http.post('http://localhost:8080/mesasAbiertas/envio', m1).subscribe();
+  }
+
+
 }

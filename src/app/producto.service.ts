@@ -31,7 +31,7 @@ export class ProductoService {
 
 
   public postProducto(producto: Producto): void{
-    this.http.post('http://localhost:8080/productos', producto).subscribe();
+    this.http.post('http://localhost:8080/productos/enviar', producto).subscribe();
     //error en la base de datos
     //hay que modificar la bases de datos
   }

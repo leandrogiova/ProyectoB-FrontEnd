@@ -15,10 +15,12 @@ import { ProductoService } from '../producto.service';
 export class MibarComponent implements OnInit {
 
   agregarProducto: FormGroup;
-  agregarProductoMesa: FormGroup;
-  cobrarIdMesa: FormControl;
-  cobrarIdProducto: FormControl;
 
+  numeroMesa: FormControl;
+  numeroDeProducto: FormControl;
+
+  abrirNuevaMesa: mesaProductos;
+  precioTotal: number[];
   productos: Producto[];
   mesasAbiertas: MesaProductoService[];
   mesas: mesaProductos[];
@@ -32,16 +34,18 @@ export class MibarComponent implements OnInit {
       precio: '',
     });
 
-
-    this.agregarProductoMesa = this.fb.group({
-      numeroMesa: '',
-      agregarProducto: '', //definido arriba
-    });
-
-  
+    this.productos = new Array;
+    this.numeroMesa = new FormControl('');
+    this.numeroDeProducto = new FormControl('');
+    this.abrirNuevaMesa = new mesaProductos();
   }
 
+
+
   ngOnInit() {
+    this.servicioProducto.getAllProductos().subscribe(productos => {
+      this.productos = productos;
+    });
   }
 
   /*
@@ -51,20 +55,151 @@ export class MibarComponent implements OnInit {
     this.mesaProductoService.getMesasAbiertas().subscribe(mesaAbiertas => {
       this.mesas = mesaAbiertas;
     });
-    for(let i in this.mesas){
-      this.productos = this.mesas[i].listaProductos;
-    }
-    console.log(this.mesas)
 
+
+    for(let i in this.mesas){
+      for (let e in this.mesas[i].listaProductos){
+        this.precioTotal[i] = this.precioTotal[i] + this.mesas[i].listaProductos[e].precio;
+      }
+    }
+    console.log("precioTotal = ",this.precioTotal);
+
+    
+/*
+    for(let i=0; i < this.mesas.length; i++){
+      for(let e=0; e < this.mesas[i].listaProductos.length; e++){
+        this.precioTotal[i] = this.precioTotal[i] = this.mesas[i].listaProductos[e].precio;
+      }
+    }
+*/
   }
+
+
+  /*
+  * FUNCION COMENTADA QUE FUNCIONA
+
+  * enviarServidorProductoMesa, agrega un producto a la mesa, enviandolo a la base de datos
+ 
+  enviarServidorProductoAMesa(){
+    let numero: number = 0;
+    numero = this.numeroDeProducto.value;
+
+    for(let i: number = 0; i <= 10; i++){
+      if(numero == this.productos[i].numeroProducto){      
+        let milista: Producto[] = [];
+        milista.push(this.productos[i]);
+        this.abrirNuevaMesa.listaProductos = milista;     
+      }
+      else{
+        console.log("ERROR - NO SE ENCONTRO EL PRODUCTO QUE SE QUIREE AGREGAR")
+      }
+    }
+    this.abrirNuevaMesa.estado = true;
+    this.abrirNuevaMesa.numero_mesa = this.numeroMesa.value;
+    
+    console.log("Hola enviando al servidor. Debo abrir una nueva mesa", "\nEnviando el objeto:", this.abrirNuevaMesa);
+    this.mesaProductoService.postAbrirMesa(this.abrirNuevaMesa);
+  }
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
   enviarServidorProductoAMesa(){
-    console.log("Hola enviando al servidor. Debo enciar un producto a la mesa");
-  }
+
+      let numero: number = 0;
+      numero = this.numeroDeProducto.value;
+  
+      for(let i: number = 0; i <= 10; i++){
+        if(numero == this.productos[i].numeroProducto){      
+          let milista: Producto[] = [];
+          milista.push(this.productos[i]);
+          this.abrirNuevaMesa.listaProductos = milista;     
+        }
+        else{
+          console.log("ERROR - NO SE ENCONTRO EL PRODUCTO QUE SE QUIREE AGREGAR")
+        }
+      }
+      this.abrirNuevaMesa.estado = true;
+      this.abrirNuevaMesa.numero_mesa = this.numeroMesa.value;
+      
+      console.log("Hola enviando al servidor. Debo abrir una nueva mesa", "\nEnviando el objeto:", this.abrirNuevaMesa);
+      this.mesaProductoService.postAbrirMesa(this.abrirNuevaMesa);
+    }
+  
+  
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -74,6 +209,7 @@ export class MibarComponent implements OnInit {
   */
   public enviarProducto(){
       this.servicioProducto.postProducto(this.agregarProducto.value);
+      console.log("Agregando el objeto",this.agregarProducto.value, "\nObjeto Agregado a la base de datos");
   }
 
   

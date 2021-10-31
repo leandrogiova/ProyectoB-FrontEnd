@@ -7,17 +7,9 @@ export class mesaProductos{
     listaProductos: Producto[];
     estado: boolean;
 
+    constructor(){
 
-
-
-    constructor(id: number, numero_mesa: number,listaProductos: Producto[], estado: boolean){
-        this.id = id;
-        this.numero_mesa = numero_mesa;
-        this.listaProductos = listaProductos;
-        this.estado = estado;
-        }
-
-
+    }
 
 
         
