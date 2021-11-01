@@ -10,8 +10,8 @@
         <ul> Numero de mesa: {{mesaAbiertas.numero_mesa}} </ul>
         <ul> Estado: {{mesaAbiertas.estado}}</ul>
         <p> Lista Productos: </p>
-        <ul *ngFor = "let producto of mesaAbiertas.listaProductos ">
-            <p>Numero de Producto: {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}</p>        
+        <ul *ngFor = "let producto of mesaAbiertas.listaProductos, let precioT ">
+            <p>Numero de Producto: {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}</p>
         </ul>
 <!--
         <ul *ngFor = "let precio of precioTotal">
@@ -38,16 +38,27 @@
 
 
 <div class = "recuadro_principal">
-    <h3>Agregar Otro Producto</h3>
-
+    <h3>AGREGAR UN PRODUCTO A UNA MESA</h3>
     <p>
-        <label> Productos </label>
-         <select>      
-            <option *ngFor = "let producto of productos"> {{producto.numeroProducto}} | {{producto.nombre}}
+        <label> Mesas</label>
+        <select [formControl] = "numeroMesa" >      
+            <option *ngFor = "let mesa of mesas" value={{mesa.id}}> 
+                ID de la mesa "{{mesa.id}}" | Numero de la mesa "{{mesa.numero_mesa}}" | Estado: "{{mesa.estado}}"
             </option>
-      </select> 
+      </select>
     </p>
-   </div>
+    
+
+        <p> <label> Productos </label> </p>
+        <select [formControl] = "numeroDeProducto" >
+                <option *ngFor = "let producto of productos" value={{producto.numeroProducto}}> 
+                    {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}
+                </option>
+        </select> 
+    
+    <p> <input type = "button" value = "Enviar" (click) = "actualizar()"> </p>
+
+</div>
 
 
 <div class = "recuadro_principal">

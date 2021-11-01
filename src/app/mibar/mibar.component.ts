@@ -18,12 +18,15 @@ export class MibarComponent implements OnInit {
 
   numeroMesa: FormControl;
   numeroDeProducto: FormControl;
-
   abrirNuevaMesa: mesaProductos;
-  precioTotal: number[];
+
   productos: Producto[];
-  mesasAbiertas: MesaProductoService[];
   mesas: mesaProductos[];
+
+
+  precioTotal: number[];
+
+//  mesasAbiertas: MesaProductoService[];
 
 
   constructor(private servicioProducto: ProductoService,private mesaProductoService: MesaProductoService ,private fb: FormBuilder ) { 
@@ -46,6 +49,11 @@ export class MibarComponent implements OnInit {
     this.servicioProducto.getAllProductos().subscribe(productos => {
       this.productos = productos;
     });
+
+    this.mesaProductoService.getMesasAbiertas().subscribe(mesaAbiertas => {
+      this.mesas = mesaAbiertas;
+    });
+    
   }
 
   /*
@@ -100,6 +108,56 @@ export class MibarComponent implements OnInit {
     }
   
   
+    actualizar(){
+/*      let m1: mesaProductos = new mesaProductos();
+      
+      m1.id = 77;
+      m1.numero_mesa = 999;
+      m1.listaProductos = [];
+      m1.estado = true;
+
+      this.mesaProductoService.postActualizar(m1);
+      console.log("ACTUALIZADO");
+*/
+
+
+
+
+      let m1: mesaProductos = new mesaProductos();
+      //let numero: number = 0;
+
+      let p1: Producto = new Producto();
+
+      //m1.id = this.numeroMesa.value;
+      //numero = this.numeroDeProducto.value;
+
+      
+
+      for(let i: number = 0; i <= this.mesas.length; i++){
+        console.log("this.numeroMesa.value=",this.numeroMesa.value);
+        console.log("this.mesas[i].id=",this.mesas[i].id, "\ni=",i);
+        if(this.numeroMesa.value == this.mesas[i].id){
+          
+          for(let e: number = 0; e <= this.mesas.length; e++){
+            console.log("SEGUIR REVISANDO LOS BUCLES Y LOS CONDICIONALES Y SER SI EL PUSH SE ESTA HACIENDO BIEN");
+            if(this.numeroDeProducto.value == this.productos[e].numeroProducto){
+            
+              p1 = this.productos[e];
+              this.mesas[i].listaProductos.push(p1);
+              m1.listaProductos.push(p1);
+            }
+          } 
+        }   
+      }
+      this.mesaProductoService.postActualizar(m1);
+      console.log("Hé actualizado lista de productos de la mesa", m1);
+
+    }
+
+
+
+
+
   /*
      * FUNCION enviarProducto
      * Agrega un producto a la bases de datos.

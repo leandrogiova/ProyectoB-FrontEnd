@@ -22,5 +22,9 @@ export class MesaProductoService {
     this.http.post('http://localhost:8080/mesasAbiertas/envio', m1).subscribe();
   }
 
+  public postActualizar(m1: mesaProductos): void{
+    this.http.post('http://localhost:8080/mesasAbiertas//updateMesa', m1).subscribe();
+  }
+
 
 }
