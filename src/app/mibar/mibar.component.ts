@@ -1,6 +1,8 @@
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Console } from 'console';
+//import { FORMERR } from 'dns';
 import { MesaProductoService } from '../mesa-producto.service';
 import { mesaProductos } from '../models/mesaProductos';
 import { Producto } from '../models/producto';
@@ -65,22 +67,24 @@ export class MibarComponent implements OnInit {
     });
 
 
-    for(let i in this.mesas){
-      for (let e in this.mesas[i].listaProductos){
+//    for(let i in this.mesas){
+    for(let i:number = 0; i <= this.mesas.length; i++){
+//      for (let e in this.mesas[i].listaProductos){
+      for(let e:number = 0; e <= this.productos.length; e++){
         this.precioTotal[i] = this.precioTotal[i] + this.mesas[i].listaProductos[e].precio;
+        console.log("viendo this.precioTotal[i]: ", this.precioTotal[i]);
       }
     }
-    console.log("precioTotal = ",this.precioTotal);
-
-    
-/*
+    /*  
     for(let i=0; i < this.mesas.length; i++){
       for(let e=0; e < this.mesas[i].listaProductos.length; e++){
         this.precioTotal[i] = this.precioTotal[i] = this.mesas[i].listaProductos[e].precio;
       }
     }
-*/
+*/  
   }
+
+
 
   /*
      * FUNCION enviarServidorProductoAMesa
@@ -107,56 +111,6 @@ export class MibarComponent implements OnInit {
       this.mesaProductoService.postAbrirMesa(this.abrirNuevaMesa);
     }
   
-  
-    actualizar(){
-/*      let m1: mesaProductos = new mesaProductos();
-      
-      m1.id = 77;
-      m1.numero_mesa = 999;
-      m1.listaProductos = [];
-      m1.estado = true;
-
-      this.mesaProductoService.postActualizar(m1);
-      console.log("ACTUALIZADO");
-*/
-
-
-
-
-      let m1: mesaProductos = new mesaProductos();
-      //let numero: number = 0;
-
-      let p1: Producto = new Producto();
-
-      //m1.id = this.numeroMesa.value;
-      //numero = this.numeroDeProducto.value;
-
-      
-
-      for(let i: number = 0; i <= this.mesas.length; i++){
-        console.log("this.numeroMesa.value=",this.numeroMesa.value);
-        console.log("this.mesas[i].id=",this.mesas[i].id, "\ni=",i);
-        if(this.numeroMesa.value == this.mesas[i].id){
-          
-          for(let e: number = 0; e <= this.mesas.length; e++){
-            console.log("SEGUIR REVISANDO LOS BUCLES Y LOS CONDICIONALES Y SER SI EL PUSH SE ESTA HACIENDO BIEN");
-            if(this.numeroDeProducto.value == this.productos[e].numeroProducto){
-            
-              p1 = this.productos[e];
-              this.mesas[i].listaProductos.push(p1);
-              m1.listaProductos.push(p1);
-            }
-          } 
-        }   
-      }
-      this.mesaProductoService.postActualizar(m1);
-      console.log("Hé actualizado lista de productos de la mesa", m1);
-
-    }
-
-
-
-
 
   /*
      * FUNCION enviarProducto
@@ -167,7 +121,6 @@ export class MibarComponent implements OnInit {
     console.log("Agregando el objeto",this.agregarProducto.value, "\nObjeto Agregado a la base de datos");
   }
 
-  
 
 /*
 
@@ -185,7 +138,41 @@ export class MibarComponent implements OnInit {
       this.productos = productos;
     });
   }
-  
+
+/*
+///////////////////FUNCIONA!!!!!!!!!!!!!!!!!
+actualizar(){
+        let m1: mesaProductos = new mesaProductos();
+        m1.id = 100;
+        m1.numero_mesa = 99;
+        
+        m1.estado = true;
+        m1.listaProductos = [this.productos[0]].concat(m1.listaProductos);
+
+        this.mesaProductoService.postActualizar(m1);
+        console.log("ACTUALIZADO");
+}
+*/
+
+
+actualizar(){
+  let n: number = 0;
+  for(var i in this.mesas){
+    if(this.numeroMesa.value == this.mesas[i].id){
+      for(var e in this.productos){
+        if(this.numeroDeProducto.value == this.productos[e].numeroProducto){
+          this.mesas[i].listaProductos = [this.productos[e]].concat(this.mesas[i].listaProductos);
+          this.mesaProductoService.postActualizar(this.mesas[i]);
+          console.log("ACTUALIZADO mesa=", this.mesas[i]);      
+        }
+        console.log("No se encontro el producto");
+      }
+    }
+    else{
+      console.log("NO SE ENCONTRO UNA MESA");
+    }
+  }
+}
 
   
 

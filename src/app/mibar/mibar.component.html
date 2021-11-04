@@ -10,8 +10,9 @@
         <ul> Numero de mesa: {{mesaAbiertas.numero_mesa}} </ul>
         <ul> Estado: {{mesaAbiertas.estado}}</ul>
         <p> Lista Productos: </p>
-        <ul *ngFor = "let producto of mesaAbiertas.listaProductos, let precioT ">
+        <ul *ngFor = "let producto of mesaAbiertas.listaProductos">
             <p>Numero de Producto: {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}</p>
+            <p>Precio total de la mesa: {{precioTotal}}</p>
         </ul>
 <!--
         <ul *ngFor = "let precio of precioTotal">
@@ -47,8 +48,6 @@
             </option>
       </select>
     </p>
-    
-
         <p> <label> Productos </label> </p>
         <select [formControl] = "numeroDeProducto" >
                 <option *ngFor = "let producto of productos" value={{producto.numeroProducto}}> 
@@ -57,7 +56,11 @@
         </select> 
     
     <p> <input type = "button" value = "Enviar" (click) = "actualizar()"> </p>
-
+</div>
+<div>
+    VIENDO VARIABLES
+    numero de producto: {{this.numeroDeProducto.value  | json}}
+    <p>numero de id de la mesa: {{numeroMesa.value  | json }}</p>
 </div>
 
 
