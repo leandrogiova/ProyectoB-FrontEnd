@@ -1,7 +1,7 @@
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Console } from 'console';
+//import { Console } from 'console';
 //import { FORMERR } from 'dns';
 import { MesaProductoService } from '../mesa-producto.service';
 import { mesaProductos } from '../models/mesaProductos';
@@ -61,6 +61,7 @@ export class MibarComponent implements OnInit {
   /*
   VerMesasAbiertas, se mostraran todas las mesas abiertas
     */
+
   verMesasAbiertas(){
     this.mesaProductoService.getMesasAbiertas().subscribe(mesaAbiertas => {
       this.mesas = mesaAbiertas;
@@ -71,19 +72,12 @@ export class MibarComponent implements OnInit {
     for(let i:number = 0; i <= this.mesas.length; i++){
 //      for (let e in this.mesas[i].listaProductos){
       for(let e:number = 0; e <= this.productos.length; e++){
-        this.precioTotal[i] = this.precioTotal[i] + this.mesas[i].listaProductos[e].precio;
+        this.precioTotal[i] =  this.precioTotal[i] + this.mesas[i].listaProductos[e].precio;
+        //        this.precioTotal[i] = this.precioTotal[i] + this.mesas[i].listaProductos[e].precio;
         console.log("viendo this.precioTotal[i]: ", this.precioTotal[i]);
       }
     }
-    /*  
-    for(let i=0; i < this.mesas.length; i++){
-      for(let e=0; e < this.mesas[i].listaProductos.length; e++){
-        this.precioTotal[i] = this.precioTotal[i] = this.mesas[i].listaProductos[e].precio;
-      }
-    }
-*/  
   }
-
 
 
   /*
@@ -143,11 +137,13 @@ export class MibarComponent implements OnInit {
 ///////////////////FUNCIONA!!!!!!!!!!!!!!!!!
 actualizar(){
         let m1: mesaProductos = new mesaProductos();
-        m1.id = 100;
+        m1.id = 105;
         m1.numero_mesa = 99;
         
         m1.estado = true;
         m1.listaProductos = [this.productos[0]].concat(m1.listaProductos);
+        m1.listaProductos = [this.productos[0]].concat(m1.listaProductos);
+
 
         this.mesaProductoService.postActualizar(m1);
         console.log("ACTUALIZADO");
@@ -155,26 +151,33 @@ actualizar(){
 */
 
 
+/*
+  * Funcion actualizar
+  * Esta funcion agrega un producto a la mesa.
+  * La variable j, ayuda a utilizar el break para parar el bucle
+*/
 actualizar(){
-  let n: number = 0;
+  //let j: boolean = false;                
   for(var i in this.mesas){
     if(this.numeroMesa.value == this.mesas[i].id){
       for(var e in this.productos){
         if(this.numeroDeProducto.value == this.productos[e].numeroProducto){
           this.mesas[i].listaProductos = [this.productos[e]].concat(this.mesas[i].listaProductos);
-          this.mesaProductoService.postActualizar(this.mesas[i]);
-          console.log("ACTUALIZADO mesa=", this.mesas[i]);      
+          this.mesaProductoService.postActualizar(this.mesas[i]);    
+          console.log("ACTUALIZADO mesa=", this.mesas[i]);
+//          j = true;
+          break;   
         }
-        console.log("No se encontro el producto");
       }
     }
-    else{
-      console.log("NO SE ENCONTRO UNA MESA");
-    }
+//    if(j == true){
+      //break;
+//    }
   }
 }
 
-  
+
+
 
 
 }
