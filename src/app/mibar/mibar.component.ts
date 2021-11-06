@@ -157,7 +157,7 @@ actualizar(){
   * La variable j, ayuda a utilizar el break para parar el bucle
 */
 actualizar(){
-  //let j: boolean = false;                
+  let j: boolean = false;                
   for(var i in this.mesas){
     if(this.numeroMesa.value == this.mesas[i].id){
       for(var e in this.productos){
@@ -165,14 +165,15 @@ actualizar(){
           this.mesas[i].listaProductos = [this.productos[e]].concat(this.mesas[i].listaProductos);
           this.mesaProductoService.postActualizar(this.mesas[i]);    
           console.log("ACTUALIZADO mesa=", this.mesas[i]);
-//          j = true;
+          j = true;
           break;   
         }
       }
     }
-//    if(j == true){
-      //break;
-//    }
+    
+    if(j == true){
+      break;
+    }
   }
 }
 
