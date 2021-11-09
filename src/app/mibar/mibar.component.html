@@ -6,40 +6,35 @@
     <h1>Mesas Abiertas</h1>
     <input type = "button" (click) = "verMesasAbiertas()" value = "Ver Mesas Abiertas">
    
-    <li *ngFor = "let mesaAbiertas of mesas">
-        <ul> Numero de mesa: {{mesaAbiertas.numero_mesa}} </ul>
-        <ul> Estado: {{mesaAbiertas.estado}}</ul>
-        <p> Lista Productos: </p>
-        <ul *ngFor = "let producto of mesaAbiertas.listaProductos">
-            <p>Numero de Producto: {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}</p>
-            <p>Precio total de la mesa: {{precioTotal}}</p>
-        </ul>
-<!--
-        <ul *ngFor = "let precio of precioTotal">
-            Precio Total de la mesa: {{precio}}
-        </ul>
--->
-    </li>
-
-</div>
-
-<div class="recuadro_principal">
-    <div class = "recuadro_principal">
-        <h1>Abrir una nueva Mesa </h1>   
-        <p>Numero de mesa: <input type="number" [formControl] = "numeroMesa" placeholder="numero de la mesa" > </p>    
-        <p> <label> Productos </label> </p>
-        <select [formControl] = "numeroDeProducto" >
-                <option *ngFor = "let producto of productos" value={{producto.numeroProducto}}> 
-                    {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}
-                </option>
-        </select>
-        <p> <input type = "button" value = "Enviar" (click) = "enviarServidorProductoAMesa()"> </p>
-    </div>
+    <li *ngFor = "let mesaAbiertas of mesas, let i=index" class="recuadro_secundario">     
+            <ul> Numero de mesa: {{mesaAbiertas.numero_mesa}} </ul>
+            <ul> Estado: {{mesaAbiertas.estado}}</ul>
+            <p> Lista de Productos: </p>
+            <ul *ngFor = "let producto of mesaAbiertas.listaProductos">
+                Numero de producto: {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}                
+            </ul>
+            <ul *ngFor = "let item of [precioTotal]">
+                Precio total de la mesa: {{item[i]}}
+            </ul>
+    </li>   
 </div>
 
 
 <div class = "recuadro_principal">
-    <h3>AGREGAR UN PRODUCTO A UNA MESA</h3>
+    <h1>Abrir una nueva mesa </h1>   
+    <p>Numero de mesa: <input type="number" [formControl] = "numeroMesa" placeholder="numero de la mesa" > </p>    
+    <p> <label> Productos </label> </p>
+    <select [formControl] = "numeroDeProducto" >
+            <option *ngFor = "let producto of productos" value={{producto.numeroProducto}}> 
+                {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}
+            </option>
+    </select>
+    <p> <input type = "button" value = "Enviar" (click) = "enviarServidorProductoAMesa()"> </p>
+</div>
+
+
+<div class = "recuadro_principal">
+    <h3>Agregar un producto a una mesa</h3>
     <p>
         <label> Mesas</label>
         <select [formControl] = "numeroMesa" >      
@@ -57,42 +52,40 @@
     
     <p> <input type = "button" value = "Enviar" (click) = "actualizar()"> </p>
 </div>
-<div>
-    VIENDO VARIABLES
-    numero de producto: {{this.numeroDeProducto.value  | json}}
-    <p>numero de id de la mesa: {{numeroMesa.value  | json }}</p>
-</div>
+
 
 
 <div class = "recuadro_principal">
-    <h1>Cobrar Mesa</h1>
+    <h1>Cobrar una mesa</h1>
     <div class="recuadro_secundario">
-
-        <p> <button type = "submit">Cobrar </button> </p>
+        <select [formControl] = "numeroMesa" >      
+            <option *ngFor = "let mesa of mesas" value={{mesa.id}}> 
+                ID de la mesa "{{mesa.id}}" | Numero de la mesa "{{mesa.numero_mesa}}" | Estado: "{{mesa.estado}}"
+            </option>
+        </select>
+        <p> <button type = "submit" (click) = "cobrarMesa()">Cobrar </button> </p>
     </div>
+
+    
     <div class="recuadro_secundario">
         <h4>Cobrar un Producto</h4>
+        <select [formControl] = "numeroMesa" >      
+            <option *ngFor = "let mesa of mesas" value={{mesa.id}}> 
+                ID de la mesa "{{mesa.id}}" | Numero de la mesa "{{mesa.numero_mesa}}" | Estado: "{{mesa.estado}}"
+            </option>
+        </select>
     </div>
 </div>
-
 <div class = "recuadro_principal">
     <h1>Ver Detalles de la Mesa</h1>
     <p> <button type = "submit" (click) = "verMesasAbiertas()"> Ver Mesa </button> </p>
-
-<!--
-    <div *ngFor = 'let mesas of mesasAbiertas'>
-        <p>{{mesas.numeroMesa}}</p> 
-        <p>{{mesas.producto.nombre}} | {{mesas.producto.numeroProducto}} | {{mesas.producto.precio}}</p>
-    </div>
--->
-
 </div>
 
 <div class="recuadro_principal">
     hacer un recuadro azul grande y un recuadro pequeño en azul para separar cuando ingreso los datos del producto.
     <p>Agregar pedir resumenes mensuales, resumenes semanales</p>
-
 </div> 
+
 
 
 <div class="recuadro_secundario">

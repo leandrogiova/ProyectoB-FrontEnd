@@ -6,6 +6,7 @@ export class mesaProductos{
     numero_mesa: number;
     listaProductos: Producto[];
     estado: boolean;
+    precioTemporal: number;
 
     constructor(){
 

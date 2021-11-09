@@ -17,19 +17,13 @@ import { ProductoService } from '../producto.service';
 export class MibarComponent implements OnInit {
 
   agregarProducto: FormGroup;
-
   numeroMesa: FormControl;
   numeroDeProducto: FormControl;
   abrirNuevaMesa: mesaProductos;
 
   productos: Producto[];
   mesas: mesaProductos[];
-
-
   precioTotal: number[];
-
-//  mesasAbiertas: MesaProductoService[];
-
 
   constructor(private servicioProducto: ProductoService,private mesaProductoService: MesaProductoService ,private fb: FormBuilder ) { 
 
@@ -43,6 +37,8 @@ export class MibarComponent implements OnInit {
     this.numeroMesa = new FormControl('');
     this.numeroDeProducto = new FormControl('');
     this.abrirNuevaMesa = new mesaProductos();
+  
+    this.precioTotal = [];
   }
 
 
@@ -51,32 +47,26 @@ export class MibarComponent implements OnInit {
     this.servicioProducto.getAllProductos().subscribe(productos => {
       this.productos = productos;
     });
-
     this.mesaProductoService.getMesasAbiertas().subscribe(mesaAbiertas => {
       this.mesas = mesaAbiertas;
     });
-    
   }
 
-  /*
-  VerMesasAbiertas, se mostraran todas las mesas abiertas
-    */
 
+
+  /*
+    * VerMesasAbiertas, se mostraran todas las mesas abiertas
+  */
   verMesasAbiertas(){
     this.mesaProductoService.getMesasAbiertas().subscribe(mesaAbiertas => {
       this.mesas = mesaAbiertas;
     });
-
-
-//    for(let i in this.mesas){
-    for(let i:number = 0; i <= this.mesas.length; i++){
-//      for (let e in this.mesas[i].listaProductos){
-      for(let e:number = 0; e <= this.productos.length; e++){
+    for(let i:number = 0; i < this.mesas.length; i++){
+      this.precioTotal[i] = 0;
+      for(let e:number = 0; e < this.mesas[i].listaProductos.length; e++){
         this.precioTotal[i] =  this.precioTotal[i] + this.mesas[i].listaProductos[e].precio;
-        //        this.precioTotal[i] = this.precioTotal[i] + this.mesas[i].listaProductos[e].precio;
-        console.log("viendo this.precioTotal[i]: ", this.precioTotal[i]);
       }
-    }
+    }  
   }
 
 
@@ -133,23 +123,6 @@ export class MibarComponent implements OnInit {
     });
   }
 
-/*
-///////////////////FUNCIONA!!!!!!!!!!!!!!!!!
-actualizar(){
-        let m1: mesaProductos = new mesaProductos();
-        m1.id = 105;
-        m1.numero_mesa = 99;
-        
-        m1.estado = true;
-        m1.listaProductos = [this.productos[0]].concat(m1.listaProductos);
-        m1.listaProductos = [this.productos[0]].concat(m1.listaProductos);
-
-
-        this.mesaProductoService.postActualizar(m1);
-        console.log("ACTUALIZADO");
-}
-*/
-
 
 /*
   * Funcion actualizar
@@ -177,8 +150,23 @@ actualizar(){
   }
 }
 
+  /*
+    * Funcion cobrarMesa
+    * cierra la mesa actualizando el estado a False, representado a la mesa cerrada
+    * Actualiza el precio final
+  */
+  cobrarMesa(){
 
+    for(let i in this.mesas){
+      if(this.numeroMesa.value == this.mesas[i].id){
+        this.mesas[i].estado = false;
+        console.log("this.mesas[i]", this.mesas[i]);
+        this.mesaProductoService.postCerrarMesa(this.mesas[i]);
+        break;
+      }
 
+    }
+  
 
-
+  }
 }
