@@ -21,9 +21,14 @@ export class MibarComponent implements OnInit {
   numeroDeProducto: FormControl;
   abrirNuevaMesa: mesaProductos;
 
+  verLista: boolean;
+  verOcultar: string;
   productos: Producto[];
   mesas: mesaProductos[];
   precioTotal: number[];
+
+
+  productosAgregar: Producto[];
 
   constructor(private servicioProducto: ProductoService,private mesaProductoService: MesaProductoService ,private fb: FormBuilder ) { 
 
@@ -38,7 +43,12 @@ export class MibarComponent implements OnInit {
     this.numeroDeProducto = new FormControl('');
     this.abrirNuevaMesa = new mesaProductos();
   
+    this.verLista = false;
+    this.verOcultar = "Ver";
     this.precioTotal = [];
+
+
+    this.productosAgregar = [];
   }
 
 
@@ -52,6 +62,22 @@ export class MibarComponent implements OnInit {
     });
   }
 
+
+  /*
+    * Oculta o muestra la lista de las mesas
+  */
+  VerOcutalLista(){
+    if(this.verLista){
+      this.verLista = false;
+      this.verOcultar = "Ver"
+    }
+    else{
+      this.verLista = true;
+      this.verOcultar = "Ocultar"
+
+    }
+    console.log("verLIsta= ", this.verLista);
+  }
 
 
   /*
@@ -150,6 +176,16 @@ actualizar(){
   }
 }
 
+
+  AgregarMuchosProductos(){
+
+    console.log("Viendo lista de productos", this.productosAgregar )
+
+  }
+
+
+
+
   /*
     * Funcion cobrarMesa
     * cierra la mesa actualizando el estado a False, representado a la mesa cerrada
@@ -166,7 +202,28 @@ actualizar(){
       }
 
     }
-  
+  }
+
+  cobrarUnProducto(){
+
+    for(let i in this.mesas){
+      if(this.numeroMesa.value == this.mesas[i].id){
+
+//VER SI LA LISTA DE PRODUCTO DEBE SER LA LISTA DE PRODUCTOS DE LA MESA ABIERTA!!!!
+// LUEGO PODER AGREGAR MUCHOS PRODUCTOS A LA VEZ
+        for(let e in this.mesas[i].listaProductos){
+          if(this.productos[e].numeroProducto == this.numeroDeProducto.value){
+
+            this.mesas[i].precioTemporal = this.mesas[i].precioTemporal + this.productos[e].precio;
+            console.log("this.mesas[i].precioTemporal", this.mesas[i].precioTemporal );
+          }
+        }
+
+
+      }
+    }
+
+
 
   }
 }

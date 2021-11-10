@@ -2,23 +2,26 @@
 <p>https://github.com/ldiamand/tallerIV_frontend/commit/f138e0ad377a5509fa0c98e67203f259f0035597</p>
 
 
-<div class="recuadro_principal">
+<div class="recuadro_principal"> 
     <h1>Mesas Abiertas</h1>
-    <input type = "button" (click) = "verMesasAbiertas()" value = "Ver Mesas Abiertas">
-   
-    <li *ngFor = "let mesaAbiertas of mesas, let i=index" class="recuadro_secundario">     
-            <ul> Numero de mesa: {{mesaAbiertas.numero_mesa}} </ul>
-            <ul> Estado: {{mesaAbiertas.estado}}</ul>
-            <p> Lista de Productos: </p>
-            <ul *ngFor = "let producto of mesaAbiertas.listaProductos">
-                Numero de producto: {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}                
-            </ul>
-            <ul *ngFor = "let item of [precioTotal]">
-                Precio total de la mesa: {{item[i]}}
-            </ul>
-    </li>   
-</div>
+    <button (click) = "VerOcutalLista()"> {{verOcultar}} </button>
 
+    <label *ngIf = "verLista">
+       <p> <input type = "button" (click) = "verMesasAbiertas()" value = "Actualizar"> </p>
+    
+        <li *ngFor = "let mesaAbiertas of mesas, let i=index" class="recuadro_secundario" >     
+                <ul> Numero de mesa: {{mesaAbiertas.numero_mesa}} </ul>
+                <ul> Estado: {{mesaAbiertas.estado}}</ul>
+                <p> Lista de Productos: </p>
+                <ul *ngFor = "let producto of mesaAbiertas.listaProductos">
+                    Numero de producto: {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}                
+                </ul>
+                <ul *ngFor = "let item of [precioTotal]">
+                    Precio total de la mesa: {{item[i]}}
+                </ul>
+        </li>   
+    </label>
+</div>
 
 <div class = "recuadro_principal">
     <h1>Abrir una nueva mesa </h1>   
@@ -54,6 +57,45 @@
 </div>
 
 
+<div>
+    <h1> Agregar mas de un producto</h1>
+    <p>
+        VER EL TEMA DE FORM-ARRAY !!! 
+    </p>
+    <p>
+        <label> Mesas</label>
+        <select [formControl] = "numeroMesa" >      
+            <option *ngFor = "let mesa of mesas" value={{mesa.id}}> 
+                ID de la mesa "{{mesa.id}}" | Numero de la mesa "{{mesa.numero_mesa}}" | Estado: "{{mesa.estado}}"
+            </option>
+      </select>
+    </p>
+
+
+    <p> <label> Productos </label> </p>
+        <select>
+                <option *ngFor = "let producto of productos, let i = index" value = ""> 
+                    {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}
+                </option>
+        </select>
+        
+        <select>
+            <option *ngFor = "let producto of productos" value = "productosAgregar"> 
+                {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}
+            </option>
+    </select>
+
+    <select >
+        <option *ngFor = "let producto of productos" value = "productosAgregar"> 
+            {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}
+        </option>
+    </select>
+    <input type="submit" (click) = "AgregarMuchosProductos()" value= "Agregar muchos Productos"/>
+
+
+</div>
+
+
 
 <div class = "recuadro_principal">
     <h1>Cobrar una mesa</h1>
@@ -74,8 +116,26 @@
                 ID de la mesa "{{mesa.id}}" | Numero de la mesa "{{mesa.numero_mesa}}" | Estado: "{{mesa.estado}}"
             </option>
         </select>
+
+
+        <p> <label> Productos </label> </p>
+        <select [formControl] = "numeroDeProducto" >
+                <option *ngFor = "let producto of productos, let e" value={{producto.numeroProducto}}> 
+                    {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}
+                </option>
+        </select>
+        <p> <button type = "submit" (click) = "cobrarUnProducto()">Cobrar un producto </button> </p>
+
+
+
     </div>
 </div>
+
+
+
+
+
+
 <div class = "recuadro_principal">
     <h1>Ver Detalles de la Mesa</h1>
     <p> <button type = "submit" (click) = "verMesasAbiertas()"> Ver Mesa </button> </p>
