@@ -16,10 +16,17 @@
                 <ul *ngFor = "let producto of mesaAbiertas.listaProductos">
                     Numero de producto: {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}                
                 </ul>
+
+                <ul>
+                    Precio Total de la mesa = {{mesaAbiertas.precioTotal}}
+                </ul>
+
+  <!--
                 <ul *ngFor = "let item of [precioTotal]">
                     Precio total de la mesa: {{item[i]}}
                 </ul>
-        </li>   
+-->
+            </li>   
     </label>
 </div>
 
@@ -60,9 +67,6 @@
 <div>
     <h1> Agregar mas de un producto</h1>
     <p>
-        VER EL TEMA DE FORM-ARRAY !!! 
-    </p>
-    <p>
         <label> Mesas</label>
         <select [formControl] = "numeroMesa" >      
             <option *ngFor = "let mesa of mesas" value={{mesa.id}}> 
@@ -73,38 +77,45 @@
 
 
     <p> <label> Productos </label> </p>
-        <select>
-                <option *ngFor = "let producto of productos, let i = index" value = ""> 
-                    {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}
-                </option>
-        </select>
-        
-        <select>
-            <option *ngFor = "let producto of productos" value = "productosAgregar"> 
+    <p>
+        <select [formControl] = "numeroDeProducto" >
+            <option *ngFor = "let producto of productos" value={{producto.numeroProducto}}> 
                 {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}
             </option>
-    </select>
+        </select>
+    </p>
+        <input type = "button" value = "AgregarProducto" (click) = "agregarMuchosProductos()">
+        <p> <input type = "button" value = "EnviarMuchosProductos" (click) = "enviandoMuchosProductos()"> </p>
 
-    <select >
-        <option *ngFor = "let producto of productos" value = "productosAgregar"> 
-            {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}
-        </option>
-    </select>
-    <input type="submit" (click) = "AgregarMuchosProductos()" value= "Agregar muchos Productos"/>
-
-
+        <div class = "recuadro_secundario">
+            <p *ngFor = "let producto of lista2">
+                {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}
+            </p>
+        </div>
 </div>
 
 
 
 <div class = "recuadro_principal">
     <h1>Cobrar una mesa</h1>
-    <div class="recuadro_secundario">
+    <div class="recuadro_secundario" >
         <select [formControl] = "numeroMesa" >      
-            <option *ngFor = "let mesa of mesas" value={{mesa.id}}> 
-                ID de la mesa "{{mesa.id}}" | Numero de la mesa "{{mesa.numero_mesa}}" | Estado: "{{mesa.estado}}"
+            <option *ngFor = "let mesa of mesas, let i=index" value={{mesa.id}}> 
+                Numero-Mesa:{{mesa.numero_mesa}}|Estado:{{mesa.estado}}               
             </option>
         </select>
+
+        <input class = "espacio" type="submit" value = "Ver mesa a cobrar" (click) = "verMesaACobrar()">
+        <div *ngIf = "verLista">
+            <p>Id de la mesa: {{abrirNuevaMesa.id}} | {{abrirNuevaMesa.estado}} </p>
+            <p> Productos: </p>
+            <li *ngFor = "let producto of abrirNuevaMesa.listaProductos">
+                <ul> {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}} </ul>
+            </li>
+            <p>Ya pagado: {{abrirNuevaMesa.precioTemporal}}</p>
+            <p>Precio Total: {{abrirNuevaMesa.precioTotal}}</p>
+            
+        </div>
         <p> <button type = "submit" (click) = "cobrarMesa()">Cobrar </button> </p>
     </div>
 
@@ -120,14 +131,11 @@
 
         <p> <label> Productos </label> </p>
         <select [formControl] = "numeroDeProducto" >
-                <option *ngFor = "let producto of productos, let e" value={{producto.numeroProducto}}> 
+                <option *ngFor = "let producto of productos" value={{producto.numeroProducto}}> 
                     {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}
                 </option>
         </select>
         <p> <button type = "submit" (click) = "cobrarUnProducto()">Cobrar un producto </button> </p>
-
-
-
     </div>
 </div>
 

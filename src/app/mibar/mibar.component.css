@@ -4,7 +4,8 @@
     width: auto;
     margin-top: 30px;
     margin-bottom: 30px;
-    padding: 20px;
+    padding: 20px; 
+    align-items: center;
 }
 
 .recuadro_secundario{
@@ -13,7 +14,8 @@
     width: auto;
     margin-top: 30px;
     margin-bottom: 30px;
-    padding: 20px;
+    padding: 20px; 
+    align-items: center;
 }
 
 .tabla_productos {
@@ -21,3 +23,9 @@
     margin: 5px;
     padding: 5px;
 }
+
+.espacio {
+    margin: 20px;
+    padding: 5px;
+}
+
