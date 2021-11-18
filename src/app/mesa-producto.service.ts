@@ -41,17 +41,4 @@ export class MesaProductoService {
     return this.http.get<mesaProductos[]>('http://localhost:8080/mesasAbiertas/Resumenes');
   }
 
-
-
-  /*
-  let headers = new Headers();
-headers.append('Content-Type', 'application/json');
-headers.append('projectid', this.id);
-let params = new URLSearchParams();
-params.append("someParamKey", this.someParamValue)
-
-this.http.get('http://localhost:63203/api/CallCenter/GetSupport', { headers: headers, search: params })
-  */
-
-
 }

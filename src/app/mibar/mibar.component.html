@@ -1,7 +1,3 @@
-<h1> EJEMPLO DE DIAMAND CONECTANDO FRONTEND CON BACKEND</h1>
-<p>https://github.com/ldiamand/tallerIV_frontend/commit/f138e0ad377a5509fa0c98e67203f259f0035597</p>
-
-
 <div class="recuadro_principal"> 
     <h1>Mesas Abiertas</h1>
     <button (click) = "VerOcutalLista()"> {{verOcultar}} </button>
@@ -21,15 +17,11 @@
                 <ul>
                     Precio Total de la mesa = {{mesaAbiertas.precioTotal}}
                 </ul>
-
-  <!--
-                <ul *ngFor = "let item of [precioTotal]">
-                    Precio total de la mesa: {{item[i]}}
-                </ul>
--->
             </li>   
     </label>
 </div>
+
+
 
 <div class = "recuadro_principal">
     <h1>Abrir una nueva mesa </h1>   
@@ -76,8 +68,6 @@
             </option>
       </select>
     </p>
-
-
     <p> <label> Productos </label> </p>
     <p>
         <select [formControl] = "numeroDeProducto" >
@@ -106,7 +96,6 @@
                 Numero-Mesa:{{mesa.numero_mesa}}|Estado:{{mesa.estado}}               
             </option>
         </select>
-
         <input class = "espacio" type="submit" value = "Ver mesa a cobrar" (click) = "verMesaACobrar()">
         <div *ngIf = "verLista">
             <p>Id de la mesa: {{abrirNuevaMesa.id}} | {{abrirNuevaMesa.estado}} </p>
@@ -115,8 +104,7 @@
                 <ul> {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}} </ul>
             </li>
             <p>Ya pagado: {{abrirNuevaMesa.precioTemporal}}</p>
-            <p>Precio Total: {{abrirNuevaMesa.precioTotal}}</p>
-            
+            <p>Precio Total: {{abrirNuevaMesa.precioTotal}}</p>      
         </div>
         <p> <button type = "submit" (click) = "cobrarMesa()">Cobrar </button> </p>
     </div>
@@ -142,20 +130,10 @@
 </div>
 
 
-
-
-
-
 <div class = "recuadro_principal">
     <h1>Ver Detalles de la Mesa</h1>
     <p> <button type = "submit" (click) = "verMesasAbiertas()"> Ver Mesa </button> </p>
 </div>
-
-<div class="recuadro_principal">
-    hacer un recuadro azul grande y un recuadro pequeño en azul para separar cuando ingreso los datos del producto.
-    <p>Agregar pedir resumenes mensuales, resumenes semanales</p>
-</div> 
-
 
 
 <div class="recuadro_secundario">
@@ -168,7 +146,6 @@
     </tr>       
     </table>
 </div>
-
 
 
 <form [formGroup] = "agregarProducto" (submit) = "enviarProducto()">
@@ -192,10 +169,4 @@
 
 <div>
     {{mesasResumenes | json }}
-</div>
-
-<div>
-
-<p>PARA MODIFICAR LOS PRECIOS COPIAR LA IDEA DE ACA: (minuto 8,15 mas o menos)</p>
-<a> https://www.youtube.com/watch?v=xd5dauBh8Y4&list=RDCMUCdulIs-x_xrRd1ezwJZR9ww&index=8&ab_channel=pildorasinformaticas </a>
 </div>
