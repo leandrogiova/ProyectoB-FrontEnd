@@ -12,6 +12,7 @@
         <li *ngFor = "let mesaAbiertas of mesas, let i=index" class="recuadro_secundario" >     
                 <ul> Numero de mesa: {{mesaAbiertas.numero_mesa}} </ul>
                 <ul> Estado: {{mesaAbiertas.estado}}</ul>
+                <ul>Fecha: {{mesaAbiertas.fecha}}</ul>
                 <p> Lista de Productos: </p>
                 <ul *ngFor = "let producto of mesaAbiertas.listaProductos">
                     Numero de producto: {{producto.numeroProducto}} | {{producto.nombre}} | {{producto.precio}}                
@@ -32,7 +33,8 @@
 
 <div class = "recuadro_principal">
     <h1>Abrir una nueva mesa </h1>   
-    <p>Numero de mesa: <input type="number" [formControl] = "numeroMesa" placeholder="numero de la mesa" > </p>    
+    <p>Numero de mesa: <input type="number" [formControl] = "numeroMesa" placeholder="Numero de la mesa" > </p>
+    <p>Fecha de la mesa <input type = "datetime-local" [formControl] = "fecha1Mesa" placeholder="Fecha de la mesa" ></p>    
     <p> <label> Productos </label> </p>
     <select [formControl] = "numeroDeProducto" >
             <option *ngFor = "let producto of productos" value={{producto.numeroProducto}}> 
@@ -179,6 +181,18 @@
     </div>
 </form>
 
+
+<div class = "recuadro_principal">
+    <p> Filtrar busqueda entre la fecha: </p>
+    <p> <input type = "datetime-local" [formControl] = "fecha1Mesa" placeholder="Primera Fecha" required ></p>    
+    <p> Y la fecha: </p>
+    <p> <input type = "datetime-local" [formControl] = "fecha2Mesa" placeholder="Segunda Fecha" required></p>    
+    <button (click) = "pedirResumenes()"> Pedir resumenes </button>
+</div>
+
+<div>
+    {{mesasResumenes | json }}
+</div>
 
 <div>
 

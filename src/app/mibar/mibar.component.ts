@@ -1,5 +1,5 @@
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
-import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 //import { Console } from 'console';
 //import { FORMERR } from 'dns';
@@ -19,15 +19,19 @@ export class MibarComponent implements OnInit {
   agregarProducto: FormGroup;
   numeroMesa: FormControl;
   numeroDeProducto: FormControl;
+  fecha1Mesa: FormControl;
+  fecha2Mesa: FormControl;
 
   verLista: boolean;
   verOcultar: string;
   productos: Producto[];
   mesas: mesaProductos[];
+  mesasResumenes: mesaProductos[];
 
   abrirNuevaMesa: mesaProductos;
   productosAgregar: number[];
   lista2: Producto[];
+
 
   constructor(private servicioProducto: ProductoService,private mesaProductoService: MesaProductoService ,private fb: FormBuilder ) { 
 
@@ -39,9 +43,14 @@ export class MibarComponent implements OnInit {
 
     this.productos = new Array;
     this.numeroMesa = new FormControl('');
+
     
     this.numeroDeProducto = new FormControl('');
     this.abrirNuevaMesa = new mesaProductos();
+    this.fecha1Mesa = new FormControl('');
+    this.fecha2Mesa = new FormControl('');
+
+
 
     this.verLista = false;
     this.verOcultar = "Ver";
@@ -103,6 +112,7 @@ export class MibarComponent implements OnInit {
         if(numero == this.productos[i].numeroProducto){      
           let milista: Producto[] = [];
           milista.push(this.productos[i]);
+          this.abrirNuevaMesa.fecha = this.fecha1Mesa.value;
           this.abrirNuevaMesa.listaProductos = milista;
           this.abrirNuevaMesa.precioTotal = this.productos[i].precio;
         }
@@ -258,7 +268,6 @@ actualizar(){
         }
       }
     }
-  
   }
 
 
@@ -272,5 +281,22 @@ actualizar(){
       }
       this.verLista = true;
     }
+
+
+  pedirResumenes(){
+    let fecha1: Date = this.fecha1Mesa.value;
+    let fecha2: Date = this.fecha2Mesa.value;
+
+    this.mesaProductoService.postResumenes([fecha1, fecha2]);
+
+    console.log("Se envio las fechas a buscar");
+    this.mesaProductoService.getResumenes().subscribe(mesas => {
+      this.mesasResumenes = mesas;
+    });
+
+    console.log("Se trajeron todas las fechas");
+
+  }
   
+
 }
