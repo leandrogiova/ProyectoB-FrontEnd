@@ -1,0 +1,39 @@
+.recuadro_principal{
+    font-family: 'Courier New', Courier, monospace;
+    border: 8px solid #053b62;
+    width: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px; 
+    align-items: center;
+}
+
+.letraMasPequeña1 {
+    font-size: small;
+}
+
+.recuadro_secundario{
+    font-family: 'Courier New', Courier, monospace;
+    border: 3px solid #053b62;
+    width: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px; 
+    align-items: center;
+}
+
+.tabla_productos {
+    border: 5px solid black;
+    margin: 5px;
+    padding: 5px;
+}
+
+.espacio {
+    margin-bottom: 5%;
+}
+
+.fondoFormulario1 {
+    background-color: #868686;
+    font-style: italic;
+}
+
