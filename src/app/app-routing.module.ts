@@ -5,7 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { MibarComponent } from './mibar/mibar.component';
 
 const routes: Routes = [
-  {path: 'inicio', component: AppComponent},
+//  {path: 'inicio', component: AppComponent},
   {path: 'home', component: HomeComponent},
   {path: 'mibar', component: MibarComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'},  // cuando no se le especifica nada entra en home

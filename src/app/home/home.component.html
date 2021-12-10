@@ -4,9 +4,9 @@
     
     <nav>
         <p>
-            <a href="#ver_miMesa"> <input class = "boton1 resaltador" type = "button" value = "Mi Mesa"> </a>
             <a href="#ir_cafeteria"><input  class = "boton1 resaltador" type = "button" value = "Cafetería"> </a>
             <a href="#ir_tragos"><input  class = "boton1 resaltador" type = "button" value = "Tragos"></a>
+            <a href="#ver_miMesa"> <input class = "boton1 resaltador" type = "button" value = "Mi Mesa"> </a>
             <a href="#ir_quienessomos"><input  class = "boton1 resaltador" type = "button" value = "Quienes Somos"></a>
             <a href="#ir_contactenos"><input  class = "boton1 resaltador" type = "button" value = "Contactenos"></a>
             <a href="#como_llegar"> <input class = "boton1 resaltador" type="button" value="Como llegar"> </a>
@@ -17,16 +17,6 @@
         <h1 class = "titulo2"> Sabemos de café</h1>
         <h3 class = "titulo3"> Si no existieran los cafés, muchas cosas jamás habrían sido hechas, dichas, ni pensadas.</h3>
     </nav>       
-
-
-
-        <h1 id = "ver_miMesa"> Mi Mesa </h1>
-        <p>
-          <input type="number" [formControl]="formularioMesa"/>
-          <input class="boton1 resaltador" placeholder="numero de mesa" type="submit"  (click)="VerMiMesa()" value="Ver mi Mesa">
-        </p>
-
-
 
         <h1 id = "ir_cafeteria"> Cafetería </h1>
           <ul>        
@@ -43,6 +33,11 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium incidunt fugit voluptates mollitia adipisci amet dicta dignissimos consequatur sunt vitae quaerat commodi error exercitationem magni earum iure, delectus deleniti autem perspiciatis! Voluptatem fugit laborum culpa, dolorem nesciunt eos labore modi perspiciatis quae magnam aliquam distinctio magni impedit facere dolore provident commodi excepturi optio natus voluptates explicabo ipsum, iste dignissimos? Voluptatem iste explicabo soluta. Natus ad iste officiis adipisci esse. Ea consequatur, accusamus sit nihil incidunt exercitationem odit, nobis aliquid explicabo quis ipsa quo ratione, est quae suscipit obcaecati. Necessitatibus aliquid deleniti accusamus numquam dolorum ut!
               </p>
 
+          <h1 id = "ver_miMesa"> Mi Mesa </h1>
+            <p>
+              <input type="number" [formControl]="formularioMesa"/>
+              <input class="boton1 resaltador" placeholder="numero de mesa" type="submit"  (click)="VerMiMesa()" value="Ver mi Mesa">
+            </p>
 
 
           <h1 id = "ir_quienessomos"> Quienes somos</h1>
@@ -60,5 +55,30 @@
             </p>
 
 </div>
+
+
+<div>
+  <h1>viendo codigo externo</h1>
+
+  <div class="container">
+
+
+
+    <div class="row" *ngFor = "let producto of productos, let index">
+      
+      <div class="col-3">
+            
+
+        <h3>{{producto.nombre}} | {{producto.numeroProducto}} | {{producto.precio}}</h3>
+        <img src="images/gallery_1.jpeg" class="img-responsive">
+      </div>
+
+      
+      
+    </div>
+    
+  </div>
+</div>
+
 
 <router-outlet> </router-outlet>

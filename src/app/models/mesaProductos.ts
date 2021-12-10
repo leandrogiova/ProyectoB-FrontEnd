@@ -15,5 +15,14 @@ export class mesaProductos{
     constructor(){
     }
 
+    isNotNull(): boolean{
+        if(this.numero_mesa == null){
+            return false;
+        }
+        else{
+            return true;
+        }
+        
+    }
 
 }

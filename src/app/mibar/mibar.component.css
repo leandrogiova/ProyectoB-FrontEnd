@@ -8,6 +8,10 @@
     align-items: center;
 }
 
+.letraMasPequeña1 {
+    font-size: small;
+}
+
 .recuadro_secundario{
     font-family: 'Courier New', Courier, monospace;
     border: 3px solid #053b62;
@@ -25,7 +29,11 @@
 }
 
 .espacio {
-    margin: 20px;
-    padding: 5px;
+    margin-bottom: 5%;
+}
+
+.fondoFormulario1 {
+    background-color: #868686;
+    font-style: italic;
 }
 

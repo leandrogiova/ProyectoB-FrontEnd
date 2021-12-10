@@ -4,6 +4,7 @@ export class Producto {
     numeroProducto: number;
     nombre: string;
     precio: number;
+    enStock: boolean;
 
     constructor(){   
     }    

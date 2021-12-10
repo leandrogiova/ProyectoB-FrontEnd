@@ -1,6 +1,8 @@
+import { ThrowStmt } from '@angular/compiler';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { of } from 'rxjs';
 //import { Console } from 'console';
 //import { FORMERR } from 'dns';
 import { MesaProductoService } from '../mesa-producto.service';
@@ -22,15 +24,20 @@ export class MibarComponent implements OnInit {
   fecha1Mesa: FormControl;
   fecha2Mesa: FormControl;
 
-  verLista: boolean;
+
   verOcultar: string;
   productos: Producto[];
   mesas: mesaProductos[];
   mesasResumenes: mesaProductos[];
+  mesaUnica: mesaProductos;
 
   abrirNuevaMesa: mesaProductos;
   productosAgregar: number[];
   lista2: Producto[];
+
+  verLista: boolean;
+  verListaProductos: boolean;
+  verUnaMesaBool: boolean;
 
 
   constructor(private servicioProducto: ProductoService,private mesaProductoService: MesaProductoService ,private fb: FormBuilder ) { 
@@ -54,10 +61,14 @@ export class MibarComponent implements OnInit {
 
     this.verLista = false;
     this.verOcultar = "Ver";
+    this.verListaProductos = false;
+    this.verUnaMesaBool = false;
 
 
     this.productosAgregar = [];
     this.lista2 = [];
+    this.mesaUnica = new mesaProductos();
+
 
   }
 
@@ -76,7 +87,7 @@ export class MibarComponent implements OnInit {
   /*
     * Oculta o muestra la lista de las mesas
   */
-  VerOcutalLista(){
+  VerOcutalLista(): void{
     if(this.verLista){
       this.verLista = false;
       this.verOcultar = "Ver"
@@ -93,7 +104,7 @@ export class MibarComponent implements OnInit {
   /*
     * VerMesasAbiertas, se mostraran todas las mesas abiertas
   */
-  verMesasAbiertas(){
+  verMesasAbiertas(): void{
     this.mesaProductoService.getMesasAbiertas().subscribe(mesaAbiertas => {
       this.mesas = mesaAbiertas;
     });
@@ -104,20 +115,21 @@ export class MibarComponent implements OnInit {
      * FUNCION enviarServidorProductoAMesa
      *  Levanta una nueva mesa agregando un unico producto, enviando un objeto MesaProdutos a la base de datos.
   */
-  enviarServidorProductoAMesa(){
+  enviarServidorProductoAMesa(): void{
       let numero: number = 0;
       numero = this.numeroDeProducto.value;
   
-      for(let i: number = 0; i <= 10; i++){
+      for(let i: number = 0; i <= this.productos.length; i++){
         if(numero == this.productos[i].numeroProducto){      
           let milista: Producto[] = [];
           milista.push(this.productos[i]);
           this.abrirNuevaMesa.fecha = this.fecha1Mesa.value;
           this.abrirNuevaMesa.listaProductos = milista;
           this.abrirNuevaMesa.precioTotal = this.productos[i].precio;
+          break;
         }
         else{
-          console.log("ERROR - NO SE ENCONTRO EL PRODUCTO QUE SE QUIREE AGREGAR")
+          console.log("ERROR - NO SE ENCONTRO EL PRODUCTO QUE SE QUIREE AGREGAR");
         }
       }
       this.abrirNuevaMesa.estado = true;
@@ -127,6 +139,11 @@ export class MibarComponent implements OnInit {
       console.log("Hola enviando al servidor. Debo abrir una nueva mesa", "\nEnviando el objeto:", this.abrirNuevaMesa);
       this.mesas.push(this.abrirNuevaMesa);
       this.mesaProductoService.postAbrirMesa(this.abrirNuevaMesa);
+
+      //limpio los casilleros
+      this.numeroMesa = new FormControl('');
+      this.fecha1Mesa = new FormControl('');
+      this.numeroDeProducto = new FormControl('');
     }
   
 
@@ -134,9 +151,15 @@ export class MibarComponent implements OnInit {
      * FUNCION enviarProducto
      * Agrega un producto a la bases de datos.
   */
-  enviarProducto(){
+  enviarProducto():void{
     this.servicioProducto.postProducto(this.agregarProducto.value);
     console.log("Agregando el objeto",this.agregarProducto.value, "\nObjeto Agregado a la base de datos");
+  
+    this.agregarProducto = this.fb.group({
+      numeroProducto: '',
+      nombre: '',
+      precio: '',
+    }); 
   }
 
 
@@ -151,7 +174,8 @@ export class MibarComponent implements OnInit {
    * Se van a buscar todos los productos de la bases de datos, para poder visualizar los productos en la pagina 
    * Y se comopleta la variable productos definida arriba
 */
-  VerListaProducto(){
+  VerListaProducto(): void{
+    this.verListaProductos = !this.verListaProductos;
     this.servicioProducto.getAllProductos().subscribe(productos => {
       this.productos = productos;
     });
@@ -163,7 +187,7 @@ export class MibarComponent implements OnInit {
   * Esta funcion agrega un producto a la mesa.
   * La variable j, ayuda a utilizar el break para parar el bucle
 */
-actualizar(){
+actualizar(): void{
   let j: boolean = false;                
   for(var i in this.mesas){
     if(this.numeroMesa.value == this.mesas[i].id){
@@ -172,7 +196,6 @@ actualizar(){
           this.mesas[i].listaProductos = [this.productos[e]].concat(this.mesas[i].listaProductos);
           this.mesas[i].precioTotal = this.mesas[i].precioTotal + this.productos[e].precio;
           this.mesaProductoService.postActualizar(this.mesas[i]);    
-          console.log("ACTUALIZADO mesa=", this.mesas[i]);
           j = true;
           break;   
         }
@@ -185,32 +208,35 @@ actualizar(){
 }
 
 
-  agregarMuchosProductos(){
+  agregarMuchosProductos(): void{
     for(var i in this.mesas){
       if(this.numeroMesa.value == this.mesas[i].id){
         for(var e in this.productos){
           if(this.numeroDeProducto.value == this.productos[e].numeroProducto){
             this.lista2.push(this.productos[e]);
 
+            
             console.log("ACTUALIZADO lista2=", this.lista2);
             break;   
           }
         }
       }
     }
-    
   }
 
-  enviandoMuchosProductos(){
+  enviandoMuchosProductos(): void{
     for(let i in this.mesas){
       if(this.numeroMesa.value == this.mesas[i].id){
         this.mesas[i].listaProductos = this.lista2.concat(this.mesas[i].listaProductos);
         this.mesas[i].precioTotal = 0;
         for(let e in this.mesas[i].listaProductos){
           this.mesas[i].precioTotal = this.mesas[i].precioTotal + this.mesas[i].listaProductos[e].precio;
+  console.log("this.mesas[i].precioTotal = ", this.mesas[i].precioTotal);
         }
+        
         this.mesaProductoService.postActualizar(this.mesas[i]);
         console.log("enviando Muchos productos,", this.mesas[i]);
+        this.lista2 = [];
         break;
       }
       
@@ -226,7 +252,7 @@ actualizar(){
     * cierra la mesa actualizando el estado a False, representado a la mesa cerrada
     * Actualiza el precio final
   */
-  cobrarMesa(){
+  cobrarMesa(): void{
 /*
     for(let i in this.mesas){
       if(this.numeroMesa.value == this.mesas[i].id){
@@ -252,7 +278,7 @@ actualizar(){
   }
 
   
-  cobrarUnProducto(){
+  cobrarUnProducto(): void{
 
     for(let i in this.mesas){
       if(this.numeroMesa.value == this.mesas[i].id){
@@ -271,7 +297,7 @@ actualizar(){
   }
 
 
-  verMesaACobrar(){
+  verMesaACobrar(): void{
       for(let i in this.mesas){
         if(this.numeroMesa.value == this.mesas[i].id){
           this.abrirNuevaMesa = this.mesas[i];
@@ -279,11 +305,11 @@ actualizar(){
           break;
         }
       }
-      this.verLista = true;
+      this.verLista = !this.verLista;
     }
 
 
-  pedirResumenes(){
+  pedirResumenes(): void{
     let fecha1: Date = this.fecha1Mesa.value;
     let fecha2: Date = this.fecha2Mesa.value;
 
@@ -294,9 +320,112 @@ actualizar(){
       this.mesasResumenes = mesas;
     });
 
+    this.fecha1Mesa = new FormControl('');
+    this.fecha2Mesa = new FormControl('');
+
     console.log("Se trajeron todas las fechas");
 
   }
+/*
+  *FUNCION verUnaMesa
+  * Muestra el detalle de toda una mesa para luego poder modificar cualquier campo
+  * No recibe parametros, ni devuelve ningun dato.
+*/
+  verUnaMesa(): void{
+    this.verUnaMesaBool =  !this.verUnaMesaBool;
+    for(let i = 0; i <= this.mesas.length; i++){
+      if(this.numeroMesa.value == this.mesas[i].numero_mesa){
+        this.mesaUnica = this.mesas[i];
+        console.log("mesaUnica: ",this.mesaUnica);
+
+        break;
+      } 
+    }
+  }
   
+  /*
+    * FUNCION cambioNumeroDeMesa
+    * Cambia el numero de la mesa, el cambio se ve asentado en la lista de las mesas abiertas (this.mesas)
+    * El cambio no se ve reflejado en la base de datos!!!
+    * No recibe parametros, ni devuelve ningun dato.
+  */
+
+  cambioNumeroDeMesa(): void{
+    console.log("mesaUnica.Numero_mesa", this.mesaUnica.numero_mesa);
+    for(let i:number = 0; i <= this.mesas.length; i++){
+      if(this.mesas[i].id == this.mesaUnica.id){
+        this.mesas[i].numero_mesa = this.mesaUnica.numero_mesa;
+        break;
+      }
+      
+    }
+  }
+
+  /*
+  
+  agregarAListaDeBorrado($event){
+    console.log("$event=", $event.target.value);    
+//    this.productosAgregar.pop();    
+    let varBol: Boolean = false;   
+    for(let i = 0; i <= this.productosAgregar.length; i++){
+      if(this.productosAgregar[i] == $event.target.value){
+        varBol = true;
+        break;
+      }
+    }
+    if(varBol == false){
+      this.productosAgregar.push($event.target.value);
+    }
+    else{
+      this.productosAgregar.pop();
+    }
+    console.log("array ProductoAgregar=", this.productosAgregar);
+  }
+*/
+
+
+/*
+*/
+agregarAListaDeBorrado($event): void{
+  for(let i: number = 0; i <= this.mesas.length; i++){
+      if(this.mesaUnica.id == this.mesas[i].id){
+          for(let e: number = 0; e <= this.mesas[i].listaProductos.length ; e++){
+              if( $event.target.value ==  this.mesas[i].listaProductos[e].id) {
+                this.mesas[i].listaProductos.splice(e, 1);
+                console.log("this.mesas[i].listaProductos=", this.mesas[i].listaProductos);
+                break;
+              }
+          }
+        break;
+      }
+  }
+}
+
+
+
+
+
+/*
+
+*/
+actualizarMesaModificada(): void{
+  this.mesaProductoService.postActualizar(this.mesaUnica);
+  console.log("Se actualizo la base de datos correctamente"); 
+}
+
+/*
+*/
+cambiarPrecioTotal($event): void{
+  this.mesaUnica.precioTotal = $event.target.value;
+}
+
+/*
+*/
+cambiarPrecioTemporal($event) : void{
+  this.mesaUnica.precioTemporal = $event.target.value;
+}
+
+
+
 
 }
