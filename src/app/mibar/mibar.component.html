@@ -1,63 +1,3 @@
-<div class = "recuadro_principal container">
-    <h1>Ver Detalles de una Mesa</h1>
-    <select [formControl] = "numeroMesa" >      
-        <option *ngFor = "let mesa of mesas" value={{mesa.numero_mesa}}> 
-            Numero de la mesa "{{mesa.numero_mesa}}"           
-        </option>
-    </select>
-    <button (click)="verUnaMesa()"> {{verOcultar}} Mesa </button>
-    <div class="recuadro_secundario" *ngIf="verUnaMesaBool" >
-        
-        <p class = "recuadro_secundario">   Numero de mesa: <input type="number" [(ngModel)]="mesaUnica.numero_mesa" value="{{mesaUnica.numero_mesa}}"> 
-            <button type="submit" (click)="cambioNumeroDeMesa()">CambiarNumeroDeMesa</button> 
-        </p> 
-      
-        <p class = "recuadro_secundario"> Estado: {{mesaUnica.estado}}  ==>
-                Abierta <input type="radio" value="True" name = "mesaUnica.estado" [(ngModel)]="mesaUnica.estado"> 
-                Cerrada <input type="radio" value="False" name = "mesaUnica.estado" [(ngModel)]="mesaUnica.estado">  
-        </p>  
-        <p class="recuadro_secundario"> Fecha: {{mesaUnica.fecha}} ==> <input type = "datetime-local" [(ngModel)]="mesaUnica.fecha"> </p> 
-
-        <!--
-        <p> Lista de Productos: </p>
-        <ul *ngFor = "let producto of mesaUnica.listaProductos">
-                <input type="checkbox" value="{{producto.id}}" (click)="agregarAListaDeBorrado($event)">
-                Numero de producto: {{producto.numeroProducto}} | {{producto.nombre}} | ${{producto.precio}}                
-            </ul>
-        -->
-        <div class="recuadro_secundario">
-            <p> Lista de Productos: </p>
-            <ul *ngFor = "let producto of mesaUnica.listaProductos">
-                <button value="{{producto.id}}" (click)="agregarAListaDeBorrado($event)"> Eliminar producto </button>
-                Numero de producto: {{producto.numeroProducto}} | {{producto.nombre}} | ${{producto.precio}}                
-            </ul>
-        </div>
-        <div class="recuadro_secundario">             
-            <p> Precio Total de la mesa: <input type="number" value="{{mesaUnica.precioTotal}}" (change)="cambiarPrecioTotal($event)"> </p>  
-            <p> Precio Temporal de la mesa: <input type="number" value="{{mesaUnica.precioTotal}}" (change)="cambiarPrecioTemporal($event)"> </p>  
-            <p> Resta Abonar = {{mesaUnica.precioTotal - mesaUnica.precioTemporal }} </p> 
-        </div>
-    </div>
-    <p> <button (click)="actualizarMesaModificada()" > Guardar Cambios </button> </p>
-</div>
-
-
-
-<p class="recuadro_principal recuadro_secundario"> ------------------------------------------------------</p>
-<p class="recuadro_principal recuadro_secundario"> ------------------------------------------------------</p>
-<p class="recuadro_principal recuadro_secundario"> ------------------------------------------------------</p>
-<p class="recuadro_principal recuadro_secundario"> ------------------------------------------------------</p>
-
-
-
-
-
-
-
-
-
-
-
 <div class="recuadro_principal container"> 
     <h1>Mesas Abiertas</h1>
     <p> <button (click) = "VerOcutalLista()"> {{verOcultar}} </button> </p>
@@ -197,6 +137,42 @@
 
 
 
+<div class = "recuadro_principal container">
+    <h1>Ver Detalles de una Mesa</h1>
+    <select [formControl] = "numeroMesa" >      
+        <option *ngFor = "let mesa of mesas" value={{mesa.numero_mesa}}> 
+            Numero de la mesa "{{mesa.numero_mesa}}"           
+        </option>
+    </select>
+    <button (click)="verUnaMesa()"> {{verOcultar}} Mesa </button>
+
+    <div class="recuadro_secundario" *ngIf="verUnaMesaBool" >
+        <p class = "recuadro_secundario">   Numero de mesa: <input type="number" [(ngModel)]="mesaUnica.numero_mesa" value="{{mesaUnica.numero_mesa}}"> 
+            <button type="submit" (click)="cambioNumeroDeMesa()">CambiarNumeroDeMesa</button> 
+        </p>       
+        <p class = "recuadro_secundario"> Estado: {{mesaUnica.estado}}  ==>
+                Abierta <input type="radio" value="True" name = "mesaUnica.estado" [(ngModel)]="mesaUnica.estado"> 
+                Cerrada <input type="radio" value="False" name = "mesaUnica.estado" [(ngModel)]="mesaUnica.estado">  
+        </p>  
+        <p class="recuadro_secundario"> Fecha: {{mesaUnica.fecha}} ==> <input type = "datetime-local" [(ngModel)]="mesaUnica.fecha"> </p> 
+        <div class="recuadro_secundario">
+            <p> Lista de Productos: </p>
+            <ul *ngFor = "let producto of mesaUnica.listaProductos">
+                <button value="{{producto.id}}" (click)="agregarAListaDeBorrado($event)"> Eliminar producto </button>
+                Numero de producto: {{producto.numeroProducto}} | {{producto.nombre}} | ${{producto.precio}}                
+            </ul>
+        </div>
+        <div class="recuadro_secundario">             
+            <p> Precio Total de la mesa: <input type="number" value="{{mesaUnica.precioTotal}}" (change)="cambiarPrecioTotal($event)"> </p>  
+            <p> Precio Temporal de la mesa: <input type="number" value="{{mesaUnica.precioTotal}}" (change)="cambiarPrecioTemporal($event)"> </p>  
+            <p> Resta Abonar = {{mesaUnica.precioTotal - mesaUnica.precioTemporal }} </p> 
+        </div>
+    </div>
+    <p> <button (click)="actualizarMesaModificada()" > Guardar Cambios </button> </p>
+</div>
+
+
+
 
 
 
@@ -212,6 +188,7 @@
 
 
 <div class = "recuadro_principal container">
+    <h1> Ver Resumenes </h1>
     <p> Filtrar busqueda entre la fecha: </p>
     <p> <input type = "datetime-local" [formControl] = "fecha1Mesa" placeholder="Primera Fecha" required ></p>    
     <p> Y la fecha: </p>
@@ -231,58 +208,5 @@
                 <th class="tabla_productos">${{producto.precio}}</th>
             </tr>       
         </table>
-</label>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-<h1> PROBANDO MODIFICAR, BORRAR Y CAMBIAR</h1>
-<div class="recuadro_secundario  container">
-    <p> <button (click) = "VerListaProducto()">Ver lista de productos </button> </p>
-    <label *ngIf = "verListaProductos">
-        <table>
-            <tr  *ngFor="let producto of productos, let i = index" class="fondoFormulario1" (change) = "actualizacion(producto, i, $event)">
-                <th class="tabla_productos">
-                    index= {{i}} <input type="number" value = "{{producto.numeroProducto}}" class="fondoFormulario1" >
-                </th>
-                <th class="tabla_productos">
-                    <input type="text" value = "{{producto.nombre}}" class="fondoFormulario1">
-                </th>
-                <th class="tabla_productos">
-                    <input type="text" value = "{{producto.precio}}" class="fondoFormulario1">  
-                </th>
-                
-            </tr>
-        </table>
     </label>
 </div>
-
-
-******************  EN EL TS 
-  actualizarlistaProductos(){    
-  }
-  actualizacion(producto, i, $event){
-    console.log("producto=", producto, "  i)", i, "  event=", $event.target.value);
-
-    this.productos[i] = producto;
-    console.log("this.prodcuto[i]=", this.productos[i]);
-  }
--->

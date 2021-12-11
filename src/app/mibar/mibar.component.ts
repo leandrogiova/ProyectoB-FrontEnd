@@ -50,20 +50,16 @@ export class MibarComponent implements OnInit {
 
     this.productos = new Array;
     this.numeroMesa = new FormControl('');
-
     
     this.numeroDeProducto = new FormControl('');
     this.abrirNuevaMesa = new mesaProductos();
     this.fecha1Mesa = new FormControl('');
     this.fecha2Mesa = new FormControl('');
 
-
-
     this.verLista = false;
     this.verOcultar = "Ver";
     this.verListaProductos = false;
     this.verUnaMesaBool = false;
-
 
     this.productosAgregar = [];
     this.lista2 = [];
@@ -84,6 +80,7 @@ export class MibarComponent implements OnInit {
   }
 
 
+
   /*
     * Oculta o muestra la lista de las mesas
   */
@@ -95,7 +92,6 @@ export class MibarComponent implements OnInit {
     else{
       this.verLista = true;
       this.verOcultar = "Ocultar"
-
     }
     console.log("verLIsta= ", this.verLista);
   }
@@ -117,8 +113,7 @@ export class MibarComponent implements OnInit {
   */
   enviarServidorProductoAMesa(): void{
       let numero: number = 0;
-      numero = this.numeroDeProducto.value;
-  
+      numero = this.numeroDeProducto.value;  
       for(let i: number = 0; i <= this.productos.length; i++){
         if(numero == this.productos[i].numeroProducto){      
           let milista: Producto[] = [];
@@ -134,8 +129,6 @@ export class MibarComponent implements OnInit {
       }
       this.abrirNuevaMesa.estado = true;
       this.abrirNuevaMesa.numero_mesa = this.numeroMesa.value;
-      
-      
       console.log("Hola enviando al servidor. Debo abrir una nueva mesa", "\nEnviando el objeto:", this.abrirNuevaMesa);
       this.mesas.push(this.abrirNuevaMesa);
       this.mesaProductoService.postAbrirMesa(this.abrirNuevaMesa);
@@ -205,6 +198,8 @@ actualizar(): void{
       break;
     }
   }
+  this.numeroMesa = new FormControl('');
+  this.numeroDeProducto = new FormControl('');
 }
 
 
@@ -214,8 +209,6 @@ actualizar(): void{
         for(var e in this.productos){
           if(this.numeroDeProducto.value == this.productos[e].numeroProducto){
             this.lista2.push(this.productos[e]);
-
-            
             console.log("ACTUALIZADO lista2=", this.lista2);
             break;   
           }
@@ -224,6 +217,10 @@ actualizar(): void{
     }
   }
 
+
+  
+  /*
+  */
   enviandoMuchosProductos(): void{
     for(let i in this.mesas){
       if(this.numeroMesa.value == this.mesas[i].id){
@@ -231,7 +228,6 @@ actualizar(): void{
         this.mesas[i].precioTotal = 0;
         for(let e in this.mesas[i].listaProductos){
           this.mesas[i].precioTotal = this.mesas[i].precioTotal + this.mesas[i].listaProductos[e].precio;
-  console.log("this.mesas[i].precioTotal = ", this.mesas[i].precioTotal);
         }
         
         this.mesaProductoService.postActualizar(this.mesas[i]);
@@ -245,25 +241,12 @@ actualizar(): void{
   }
 
 
-
-
   /*
     * Funcion cobrarMesa
     * cierra la mesa actualizando el estado a False, representado a la mesa cerrada
     * Actualiza el precio final
   */
   cobrarMesa(): void{
-/*
-    for(let i in this.mesas){
-      if(this.numeroMesa.value == this.mesas[i].id){
-        this.mesas[i].estado = false;
-        console.log("this.mesas[i]", this.mesas[i]);
-        this.mesaProductoService.postCerrarMesa(this.mesas[i]);
-        break;
-      }
-
-    }
-*/
     for(let i:number = 0; i <= this.mesas.length; i++){
       if(this.numeroMesa.value == this.mesas[i].id){
         this.mesas[i].estado = false;
@@ -273,9 +256,8 @@ actualizar(): void{
         break;
       }
     }
-
-
   }
+
 
   
   cobrarUnProducto(): void{
@@ -297,6 +279,8 @@ actualizar(): void{
   }
 
 
+  /*
+  */
   verMesaACobrar(): void{
       for(let i in this.mesas){
         if(this.numeroMesa.value == this.mesas[i].id){
@@ -309,6 +293,9 @@ actualizar(): void{
     }
 
 
+
+/*
+*/
   pedirResumenes(): void{
     let fecha1: Date = this.fecha1Mesa.value;
     let fecha2: Date = this.fecha2Mesa.value;
@@ -326,6 +313,8 @@ actualizar(): void{
     console.log("Se trajeron todas las fechas");
 
   }
+
+
 /*
   *FUNCION verUnaMesa
   * Muestra el detalle de toda una mesa para luego poder modificar cualquier campo
@@ -343,13 +332,14 @@ actualizar(): void{
     }
   }
   
+
+
   /*
     * FUNCION cambioNumeroDeMesa
     * Cambia el numero de la mesa, el cambio se ve asentado en la lista de las mesas abiertas (this.mesas)
     * El cambio no se ve reflejado en la base de datos!!!
     * No recibe parametros, ni devuelve ningun dato.
   */
-
   cambioNumeroDeMesa(): void{
     console.log("mesaUnica.Numero_mesa", this.mesaUnica.numero_mesa);
     for(let i:number = 0; i <= this.mesas.length; i++){
@@ -361,28 +351,7 @@ actualizar(): void{
     }
   }
 
-  /*
   
-  agregarAListaDeBorrado($event){
-    console.log("$event=", $event.target.value);    
-//    this.productosAgregar.pop();    
-    let varBol: Boolean = false;   
-    for(let i = 0; i <= this.productosAgregar.length; i++){
-      if(this.productosAgregar[i] == $event.target.value){
-        varBol = true;
-        break;
-      }
-    }
-    if(varBol == false){
-      this.productosAgregar.push($event.target.value);
-    }
-    else{
-      this.productosAgregar.pop();
-    }
-    console.log("array ProductoAgregar=", this.productosAgregar);
-  }
-*/
-
 
 /*
 */
@@ -402,9 +371,6 @@ agregarAListaDeBorrado($event): void{
 }
 
 
-
-
-
 /*
 
 */
@@ -412,6 +378,8 @@ actualizarMesaModificada(): void{
   this.mesaProductoService.postActualizar(this.mesaUnica);
   console.log("Se actualizo la base de datos correctamente"); 
 }
+
+
 
 /*
 */
