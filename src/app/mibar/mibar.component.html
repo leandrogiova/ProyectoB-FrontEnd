@@ -1,3 +1,48 @@
+<div class = "recuadro_principal container">
+    <h1>Ver Detalles de una Mesa</h1>
+    <select [formControl] = "numeroMesa" >      
+        <option *ngFor = "let mesa of mesas" value={{mesa.numero_mesa}}> 
+            Numero de la mesa "{{mesa.numero_mesa}}"           
+        </option>
+    </select>
+    <button (click)="verUnaMesa()"> {{verOcultar}} Mesa </button>
+
+    <div class="recuadro_secundario" *ngIf="verUnaMesaBool" >
+     
+        <div class="recuadro_secundario">
+            <p> Lista de Productos: </p>
+            <ul *ngFor = "let producto of mesaUnica.listaProductos">
+                <button value="{{producto.id}}" (click)="cobrarProducto($event)"> CobrarProducto </button>
+                Numero de producto: {{producto.numeroProducto}} | {{producto.nombre}} | ${{producto.precio}}                
+            </ul>
+        </div>
+        <ul>
+            Precio Total de la mesa = {{mesaUnica.precioTotal}}        
+        </ul>
+        <ul>
+            Ya abonado de la mesa = {{mesaUnica.precioTemporal}}        
+        </ul>
+        <ul>
+            Precio Total de la mesa = {{mesaUnica.precioTotal - mesaUnica.precioTemporal}}
+        </ul>
+    </div>
+    <p> <button (click)="actualizarMesaModificada()" > Guardar Cambios </button> </p>
+</div>
+
+
+<div>-------------------------------------------------------------    --------------------------------------------------------------------------------------------------------------------------    -------------------------------------------------------------</div>
+<div>-------------------------------------------------------------    --------------------------------------------------------------------------------------------------------------------------    -------------------------------------------------------------</div>
+<div>-------------------------------------------------------------    --------------------------------------------------------------------------------------------------------------------------    -------------------------------------------------------------</div>
+
+
+
+
+
+
+
+
+
+
 <div class="recuadro_principal container"> 
     <h1>Mesas Abiertas</h1>
     <p> <button (click) = "VerOcutalLista()"> {{verOcultar}} </button> </p>
@@ -11,7 +56,7 @@
                     <ul>Fecha: {{mesaAbiertas.fecha}}</ul>
                     <p> Lista de Productos: </p>
                     <ul *ngFor = "let producto of mesaAbiertas.listaProductos">
-                        Numero de producto: {{producto.numeroProducto}} | {{producto.nombre}} | ${{producto.precio}}                
+                        Numero de producto: {{producto.numeroProducto}} | {{producto.nombre}} | ${{producto.precio}}        
                     </ul>
                     <ul>
                         Precio Total de la mesa = {{mesaAbiertas.precioTotal}}        
@@ -118,16 +163,14 @@
     
     <div class="recuadro_secundario container">
         <h4>Cobrar un Producto</h4>
-        <select [formControl] = "numeroMesa" >      
-            <option *ngFor = "let mesa of mesas" value={{mesa.id}}> 
-                ID de la mesa "{{mesa.id}}" | Numero de la mesa "{{mesa.numero_mesa}}" | Estado: "{{mesa.estado}}"
-            </option>
+        <select [formControl] = "numeroMesa" (change)="inicializandoMesa()" >      
+                <option *ngFor = "let mesa of mesas" value={{mesa.id}} > 
+                    Numero de la mesa "{{mesa.numero_mesa}}"  
+                </option>
         </select>
-
-
         <p> <label> Productos </label> </p>
-        <select [formControl] = "numeroDeProducto" >
-                <option *ngFor = "let producto of productos" value={{producto.numeroProducto}}> 
+        <select [formControl] = "numeroDeProducto" >   
+                <option *ngFor = "let producto of mesaUnica.listaProductos" value={{producto.numeroProducto}}> 
                     {{producto.numeroProducto}} | {{producto.nombre}} | ${{producto.precio}}
                 </option>
         </select>

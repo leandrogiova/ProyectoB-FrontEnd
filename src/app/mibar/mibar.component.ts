@@ -1,4 +1,4 @@
-import { ThrowStmt } from '@angular/compiler';
+import { ConditionalExpr, ThrowStmt } from '@angular/compiler';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -125,6 +125,9 @@ export class MibarComponent implements OnInit {
         }
         else{
           console.log("ERROR - NO SE ENCONTRO EL PRODUCTO QUE SE QUIREE AGREGAR");
+          this.abrirNuevaMesa.fecha = this.fecha1Mesa.value;
+          this.abrirNuevaMesa.precioTotal = 0;
+          break;
         }
       }
       this.abrirNuevaMesa.estado = true;
@@ -228,19 +231,43 @@ actualizar(): void{
         this.mesas[i].precioTotal = 0;
         for(let e in this.mesas[i].listaProductos){
           this.mesas[i].precioTotal = this.mesas[i].precioTotal + this.mesas[i].listaProductos[e].precio;
-        }
-        
+        }     
         this.mesaProductoService.postActualizar(this.mesas[i]);
         console.log("enviando Muchos productos,", this.mesas[i]);
         this.lista2 = [];
         break;
-      }
-      
+      } 
     }
-    
   }
 
 
+
+
+
+  /*
+
+  cobrandoMuchosProductos(){
+    console.log("CobrandoMuchos Productos\nlisat2=", this.lista2);
+    for(let i: number = 0; i < this.lista2.length; i++){
+        this.mesaUnica.precioTemporal = this.mesaUnica.precioTemporal + this.lista2[i].precio;
+        if(i == this.lista2.length){
+          break;
+        }
+    } 
+    console.log("mesaUnica=", this.mesaUnica);
+    /*
+        FALTA ENVIAR AL SERVIDOR LA MESAUNICA PARA QUE SE ASIENTE EL CAMBIO
+
+        AGREGAR UN CAMPO A LA CLASE PRODUCTO (TODO DENTRO DEL FRONT END) QUE SEA PRODUCTO_COBRADO: Boolean 
+        Y CUANDO EL PRODUCTO SE COBRE ESTA VARIABLE PASE A ESTAR EN ESTADO TRUE, QUE SERIA QUE YA ESTA PAGADA
+
+
+
+  }
+    */
+  
+  
+  
   /*
     * Funcion cobrarMesa
     * cierra la mesa actualizando el estado a False, representado a la mesa cerrada
@@ -258,25 +285,58 @@ actualizar(): void{
     }
   }
 
+  /*
+  inicializandoMesa(){
+    console.log("INICIALIZANDO");
+    this.lista2 = [];
+    for(let i: number = 0; i <= this.mesas.length; i++){
+        if(this.mesas[i].id == this.numeroMesa.value){
+          console.log("encontre la mesa");
+          this.mesaUnica = this.mesas[i];
+          break;
+        }
+    }
+    console.log("INICIALIZANDO MESA = mesaUnica=", this.mesaUnica);
+  }
+  */
 
-  
+
+  /*
+  */
   cobrarUnProducto(): void{
-
-    for(let i in this.mesas){
+    console.log("cobrando:");
+    for(let i: number = 0; i <= this.mesas.length; i++){
       if(this.numeroMesa.value == this.mesas[i].id){
 
 //VER SI LA LISTA DE PRODUCTO DEBE SER LA LISTA DE PRODUCTOS DE LA MESA ABIERTA!!!!
 // LUEGO PODER AGREGAR MUCHOS PRODUCTOS A LA VEZ
-        for(let e in this.mesas[i].listaProductos){
+        for(let e: number = 0; e <= this.productos.length; e++){
           if(this.productos[e].numeroProducto == this.numeroDeProducto.value){
-
+            console.log("producto elegido = ", this.productos[e], "\n\nmesa elegida = ",this.mesas[i]);
             this.mesas[i].precioTemporal = this.mesas[i].precioTemporal + this.productos[e].precio;
             console.log("this.mesas[i].precioTemporal", this.mesas[i].precioTemporal );
+            break;
           }
         }
       }
     }
+    this.numeroMesa = new FormControl('');
+    this.numeroDeProducto = new FormControl('');
   }
+
+  /*
+    * FUNCION cobrarProducto
+    * Actualiza el precio Temporal de la mesaUnica cobrando el producto para luego actualizar la base de datos con el precio Temporal
+    * Recibe como parametro el id del producto a cobara
+  */
+  cobrarProducto($event){
+    console.log("Cobrarndo un producto\nmesaUnica=", this.mesaUnica);
+    for(let e: number = 0; e <= this.mesaUnica.listaProductos.length; e++){
+      
+    }
+ 
+  }
+
 
 
   /*
@@ -317,7 +377,8 @@ actualizar(): void{
 
 /*
   *FUNCION verUnaMesa
-  * Muestra el detalle de toda una mesa para luego poder modificar cualquier campo
+  * Muestra el detalle de toda una mesa para luego poder modificar cualquier campo.
+  * Inicializa la variable MesaUnica para despues modificarla
   * No recibe parametros, ni devuelve ningun dato.
 */
   verUnaMesa(): void{
@@ -326,7 +387,6 @@ actualizar(): void{
       if(this.numeroMesa.value == this.mesas[i].numero_mesa){
         this.mesaUnica = this.mesas[i];
         console.log("mesaUnica: ",this.mesaUnica);
-
         break;
       } 
     }
@@ -354,6 +414,10 @@ actualizar(): void{
   
 
 /*
+  * FUNCION agregarAListaDeBorrado 
+  * Borra el producto de la lista this.mesas para luego enviar a la base de datos la mesa con la lista de producto modificada
+  * Recibe como parametro el id del producto a borrar
+  * No retorna ningun dato
 */
 agregarAListaDeBorrado($event): void{
   for(let i: number = 0; i <= this.mesas.length; i++){

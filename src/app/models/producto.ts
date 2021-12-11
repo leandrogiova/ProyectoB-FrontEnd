@@ -6,6 +6,7 @@ export class Producto {
     precio: number;
     enStock: boolean;
 
+
     constructor(){   
     }    
 
