@@ -65,7 +65,6 @@ export class MibarComponent implements OnInit {
     this.lista2 = [];
     this.mesaUnica = new mesaProductos();
 
-
   }
 
 
@@ -74,9 +73,11 @@ export class MibarComponent implements OnInit {
     this.servicioProducto.getAllProductos().subscribe(productos => {
       this.productos = productos;
     });
+
     this.mesaProductoService.getMesasAbiertas().subscribe(mesaAbiertas => {
       this.mesas = mesaAbiertas;
     });
+
   }
 
 
@@ -117,6 +118,7 @@ export class MibarComponent implements OnInit {
       for(let i: number = 0; i <= this.productos.length; i++){
         if(numero == this.productos[i].numeroProducto){      
           let milista: Producto[] = [];
+          this.productos[i].cobrado = false;
           milista.push(this.productos[i]);
           this.abrirNuevaMesa.fecha = this.fecha1Mesa.value;
           this.abrirNuevaMesa.listaProductos = milista;
@@ -127,11 +129,11 @@ export class MibarComponent implements OnInit {
           console.log("ERROR - NO SE ENCONTRO EL PRODUCTO QUE SE QUIREE AGREGAR");
           this.abrirNuevaMesa.fecha = this.fecha1Mesa.value;
           this.abrirNuevaMesa.precioTotal = 0;
-          break;
         }
       }
       this.abrirNuevaMesa.estado = true;
       this.abrirNuevaMesa.numero_mesa = this.numeroMesa.value;
+      this.abrirNuevaMesa.precioTemporal = 0;
       console.log("Hola enviando al servidor. Debo abrir una nueva mesa", "\nEnviando el objeto:", this.abrirNuevaMesa);
       this.mesas.push(this.abrirNuevaMesa);
       this.mesaProductoService.postAbrirMesa(this.abrirNuevaMesa);
@@ -185,10 +187,11 @@ export class MibarComponent implements OnInit {
 */
 actualizar(): void{
   let j: boolean = false;                
-  for(var i in this.mesas){
+  for(let i: number = 0; i <= this.mesas.length; i++){
     if(this.numeroMesa.value == this.mesas[i].id){
-      for(var e in this.productos){
+      for(let e: number = 0; e <= this.productos.length; e++){
         if(this.numeroDeProducto.value == this.productos[e].numeroProducto){
+          this.mesas[i].listaProductos[e].cobrado = false;
           this.mesas[i].listaProductos = [this.productos[e]].concat(this.mesas[i].listaProductos);
           this.mesas[i].precioTotal = this.mesas[i].precioTotal + this.productos[e].precio;
           this.mesaProductoService.postActualizar(this.mesas[i]);    
@@ -205,12 +208,14 @@ actualizar(): void{
   this.numeroDeProducto = new FormControl('');
 }
 
-
+  /*
+  */
   agregarMuchosProductos(): void{
     for(var i in this.mesas){
       if(this.numeroMesa.value == this.mesas[i].id){
-        for(var e in this.productos){
+        for(let e =0; e <= this.productos.length; e++){
           if(this.numeroDeProducto.value == this.productos[e].numeroProducto){
+            this.productos[e].cobrado = false;
             this.lista2.push(this.productos[e]);
             console.log("ACTUALIZADO lista2=", this.lista2);
             break;   
@@ -304,7 +309,6 @@ actualizar(): void{
   /*
   */
   cobrarUnProducto(): void{
-    console.log("cobrando:");
     for(let i: number = 0; i <= this.mesas.length; i++){
       if(this.numeroMesa.value == this.mesas[i].id){
 
@@ -325,16 +329,34 @@ actualizar(): void{
   }
 
   /*
+  */
+  deshacerCambioCobrarProducto($event){
+    for(let e: number = 0; e <= this.mesaUnica.listaProductos.length; e++){
+      if(this.mesaUnica.listaProductos[e].id == $event.target.value){
+        this.mesaUnica.listaProductos[e].cobrado = false;
+        this.mesaUnica.precioTemporal = this.mesaUnica.precioTemporal - this.mesaUnica.listaProductos[e].precio;
+        break;
+      }
+    }
+  }
+
+
+
+  /*
     * FUNCION cobrarProducto
     * Actualiza el precio Temporal de la mesaUnica cobrando el producto para luego actualizar la base de datos con el precio Temporal
     * Recibe como parametro el id del producto a cobara
   */
   cobrarProducto($event){
-    console.log("Cobrarndo un producto\nmesaUnica=", this.mesaUnica);
+    console.log("event = ", $event.target.value);
     for(let e: number = 0; e <= this.mesaUnica.listaProductos.length; e++){
-      
+      if(this.mesaUnica.listaProductos[e].id == $event.target.value){
+        this.mesaUnica.listaProductos[e].cobrado = true;
+        this.mesaUnica.precioTemporal = this.mesaUnica.precioTemporal + this.mesaUnica.listaProductos[e].precio;
+        break;
+      }
     }
- 
+    console.log("Cobrarndo un producto\nmesaUnica=", this.mesaUnica);
   }
 
 
@@ -439,7 +461,19 @@ agregarAListaDeBorrado($event): void{
 
 */
 actualizarMesaModificada(): void{
-  this.mesaProductoService.postActualizar(this.mesaUnica);
+  this.mesaUnica.estado = false;
+  console.log("\nmesa Unica = ", this.mesaUnica);
+  for(let i: number =0; i <= this.mesas.length; i++){
+    if(this.mesas[i].id == this.mesaUnica.id){
+      this.mesas[i].estado = false;
+      this.mesaProductoService.postActualizar(this.mesas[i]);
+      this.mesaUnica = new mesaProductos();
+      this.mesas.splice(i, 1);
+      console.log("encontre la mesa");
+      break;
+    }
+  }
+  
   console.log("Se actualizo la base de datos correctamente"); 
 }
 

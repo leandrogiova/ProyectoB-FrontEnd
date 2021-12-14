@@ -1,5 +1,5 @@
 <div class = "recuadro_principal container">
-    <h1>Ver Detalles de una Mesa</h1>
+    <h1>Cobrar un producto o una Mesa</h1>
     <select [formControl] = "numeroMesa" >      
         <option *ngFor = "let mesa of mesas" value={{mesa.numero_mesa}}> 
             Numero de la mesa "{{mesa.numero_mesa}}"           
@@ -9,11 +9,12 @@
 
     <div class="recuadro_secundario" *ngIf="verUnaMesaBool" >
      
-        <div class="recuadro_secundario">
+        <div class="recuadro_secundario small">
             <p> Lista de Productos: </p>
             <ul *ngFor = "let producto of mesaUnica.listaProductos">
-                <button value="{{producto.id}}" (click)="cobrarProducto($event)"> CobrarProducto </button>
-                Numero de producto: {{producto.numeroProducto}} | {{producto.nombre}} | ${{producto.precio}}                
+                <button value="{{producto.id}}" (click)="cobrarProducto($event)" [disabled]="producto.cobrado === true"> CobrarProducto </button>
+                <button value="{{producto.id}}" (click)="deshacerCambioCobrarProducto($event)" [disabled]="producto.cobrado === false"> Deshacer cambio </button>
+                Numero de producto: {{producto.numeroProducto}} | {{producto.nombre}} | ${{producto.precio}}  <label class="verde" *ngIf="producto.cobrado===true"> COBRADO </label>              
             </ul>
         </div>
         <ul>
@@ -26,7 +27,7 @@
             Precio Total de la mesa = {{mesaUnica.precioTotal - mesaUnica.precioTemporal}}
         </ul>
     </div>
-    <p> <button (click)="actualizarMesaModificada()" > Guardar Cambios </button> </p>
+    <p> <button (click)="actualizarMesaModificada()" [disabled]="verUnaMesaBool == false"> Cobrar una mesa </button> </p>
 </div>
 
 
