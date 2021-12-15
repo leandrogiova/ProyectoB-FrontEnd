@@ -191,7 +191,6 @@ actualizar(): void{
     if(this.numeroMesa.value == this.mesas[i].id){
       for(let e: number = 0; e <= this.productos.length; e++){
         if(this.numeroDeProducto.value == this.productos[e].numeroProducto){
-          this.mesas[i].listaProductos[e].cobrado = false;
           this.mesas[i].listaProductos = [this.productos[e]].concat(this.mesas[i].listaProductos);
           this.mesas[i].precioTotal = this.mesas[i].precioTotal + this.productos[e].precio;
           this.mesaProductoService.postActualizar(this.mesas[i]);    
@@ -245,6 +244,24 @@ actualizar(): void{
     }
   }
 
+
+  /*
+  */
+  eliminarProductoDeLaLista2($event){
+    console.log("El producto a eliminar es: ", $event.target.value);
+
+    for(let i: number =0; i <= this.lista2.length; i++){
+
+      if($event.target.value == this.lista2[i].numeroProducto){
+        console.log("\n\n1--lista2 = ", this.lista2, "\n\nobjeto A eliminar = ", this.lista2[i], "\n\ni = ", i);
+        this.lista2.splice(i, 1);
+
+        console.log("\n\n2--lista2 = ", this.lista2);
+        break;
+      }
+    }
+
+  }
 
 
 
@@ -335,6 +352,7 @@ actualizar(): void{
       if(this.mesaUnica.listaProductos[e].id == $event.target.value){
         this.mesaUnica.listaProductos[e].cobrado = false;
         this.mesaUnica.precioTemporal = this.mesaUnica.precioTemporal - this.mesaUnica.listaProductos[e].precio;
+        this.mesaProductoService.postActualizar(this.mesaUnica);
         break;
       }
     }
@@ -353,6 +371,7 @@ actualizar(): void{
       if(this.mesaUnica.listaProductos[e].id == $event.target.value){
         this.mesaUnica.listaProductos[e].cobrado = true;
         this.mesaUnica.precioTemporal = this.mesaUnica.precioTemporal + this.mesaUnica.listaProductos[e].precio;
+        this.mesaProductoService.postActualizar(this.mesaUnica);
         break;
       }
     }

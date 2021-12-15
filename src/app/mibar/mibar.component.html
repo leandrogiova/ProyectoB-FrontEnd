@@ -5,7 +5,7 @@
             Numero de la mesa "{{mesa.numero_mesa}}"           
         </option>
     </select>
-    <button (click)="verUnaMesa()"> {{verOcultar}} Mesa </button>
+    <button (click)="verUnaMesa()"> Ver/Ocultar Mesa </button>
 
     <div class="recuadro_secundario" *ngIf="verUnaMesaBool" >
      
@@ -14,7 +14,7 @@
             <ul *ngFor = "let producto of mesaUnica.listaProductos">
                 <button value="{{producto.id}}" (click)="cobrarProducto($event)" [disabled]="producto.cobrado === true"> CobrarProducto </button>
                 <button value="{{producto.id}}" (click)="deshacerCambioCobrarProducto($event)" [disabled]="producto.cobrado === false"> Deshacer cambio </button>
-                Numero de producto: {{producto.numeroProducto}} | {{producto.nombre}} | ${{producto.precio}}  <label class="verde" *ngIf="producto.cobrado===true"> COBRADO </label>              
+                Numero de producto: {{producto.numeroProducto}} | {{producto.nombre}} | ${{producto.precio}} ||||  {{producto.cobrado}} ||||| <label class="verde" *ngIf="producto.cobrado===true"> COBRADO </label>              
             </ul>
         </div>
         <ul>
@@ -24,10 +24,10 @@
             Ya abonado de la mesa = {{mesaUnica.precioTemporal}}        
         </ul>
         <ul>
-            Precio Total de la mesa = {{mesaUnica.precioTotal - mesaUnica.precioTemporal}}
+            Resta abonar total de la mesa = {{mesaUnica.precioTotal - mesaUnica.precioTemporal}}
         </ul>
     </div>
-    <p> <button (click)="actualizarMesaModificada()" [disabled]="verUnaMesaBool == false"> Cobrar una mesa </button> </p>
+    <p> <button (click)="actualizarMesaModificada()" [disabled]="verUnaMesaBool == false"> Cobrar y Cerrar una mesa </button> </p>
 </div>
 
 
@@ -45,7 +45,7 @@
 
 
 <div class="recuadro_principal container"> 
-    <h1>Mesas Abiertas</h1>
+    <h1> Ver Mesas Abiertas</h1>
     <p> <button (click) = "VerOcutalLista()"> {{verOcultar}} </button> </p>
 
     <label *ngIf = "verLista">
@@ -90,7 +90,7 @@
 
 
 <div class = "recuadro_principal container">
-    <h3>Agregar un producto a una mesa</h3>
+    <h1>Agregar un producto a una mesa</h1>
     <p>
         <label> Mesas</label>
         <select [formControl] = "numeroMesa" >      
@@ -129,13 +129,15 @@
         </select>
     </p>
         <input type = "button" value = "AgregarProducto" (click) = "agregarMuchosProductos()">
-        <p> <input type = "button" value = "EnviarMuchosProductos" (click) = "enviandoMuchosProductos()"> </p>
-
+        
         <div class = "recuadro_secundario">
             <p *ngFor = "let producto of lista2">
                 {{producto.numeroProducto}} | {{producto.nombre}} | ${{producto.precio}}
+                <button class ="small"value = "{{producto.numeroProducto}}"(click)="eliminarProductoDeLaLista2($event)" > Eliminar Producto </button>
             </p>
         </div>
+        <p> <input type = "button" value = "EnviarMuchosProductos" (click) = "enviandoMuchosProductos()"> </p>
+
 </div>
 
 
@@ -242,7 +244,8 @@
 
 
 
-<div class="recuadro_secundario  container">
+<div class="recuadro_principal  container">
+    <h1> Ver Lista de Productos</h1>
     <p> <button (click) = "VerListaProducto()">Ver lista de productos </button> </p>
     <label *ngIf = "verListaProductos">
         <table>
