@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
+import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { MibarComponent } from './mibar/mibar.component';
+import { ListaProductosComponent } from './lista-productos/lista-productos.component';
 
 const routes: Routes = [
-//  {path: 'inicio', component: AppComponent},
   {path: 'home', component: HomeComponent},
-  {path: 'mibar', component: MibarComponent},
+  {path: 'productos', component: ListaProductosComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'},  // cuando no se le especifica nada entra en home
   {path: '**', component: Error}  // cuando no matchea con nada entra en error 404 - no encontrado
-];
-
+ ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
